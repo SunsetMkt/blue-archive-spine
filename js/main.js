@@ -32,7 +32,7 @@ function loadChar(model="Shiroko_home/Shiroko_home.skel") {
 
     // load new spine
     app.loader
-        .add('char', `../assets/${model}`)
+        .add('char', `./assets/${model}`)
         .load(onAssetsLoaded);
 }
 
