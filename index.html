@@ -7,6 +7,10 @@
     <title>Blue Archive Resource Viewer</title>
     <link rel="icon" type="image/x-icon"
     href="favicon.ico"/>
+    <meta name="og:title" content="Blue Archive Spine Viewer"/>
+	<meta property="og:url" content="https://respectz.github.io/blue-archive-spine/" />
+	<meta name="keywords" content="bluearchive"/>
+	<meta name="description" content="Blue Archive Spine Viewer"/>
     
     <!-- Main CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -99,7 +103,6 @@
         }
 
         //Load localStorage if exists
-        console.log(localStorage["blue-archive-res-model"])
         if(localStorage["blue-archive-res-model"])
             option.models.value = localStorage["blue-archive-res-model"]
         if(localStorage["blue-archive-res-loop"])
