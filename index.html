@@ -142,15 +142,20 @@
             localStorage.setItem("blue-archive-res-talkSound", this.checked);
         }
         option.scaleFit.onclick = function() {
-            char.scale.x = char.scale.y = option.scale.value = option.models.value.indexOf("_home") != -1 ? Math.max(app.renderer.height/char.spineData.height, app.renderer.width/char.spineData.width) : Math.min(app.renderer.height/char.spineData.height, app.renderer.width/char.spineData.width);
+            if(isCharacterLoaded)
+                char.scale.x = char.scale.y = option.scale.value = option.models.value.indexOf("_home") != -1 ? Math.max(app.renderer.height/char.spineData.height, app.renderer.width/char.spineData.width) : Math.min(app.renderer.height/char.spineData.height, app.renderer.width/char.spineData.width);
         }
         option.scaleHalf.onclick = function() {
-            char.scale.x = char.scale.y = option.scale.value = 0.5;
+            if(isCharacterLoaded)
+                char.scale.x = char.scale.y = option.scale.value = 0.5;
         }
         option.scale.onchange = function() {
-            char.scale.x = char.scale.y = option.scale.value;
+            if(isCharacterLoaded)
+                char.scale.x = char.scale.y = option.scale.value;
         }
         option.autoPos.onchange = function() {
+            if(!isCharacterLoaded)
+                return;
             if(this.checked) {
                 option.x.disabled = option.y.disabled = true;
                 option.x.value = char.x = app.screen.width/2;
