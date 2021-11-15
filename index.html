@@ -34,6 +34,7 @@
 
     <!-- Howler -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 <body>
     <nav class="uk-navbar-container" uk-navbar style="position: fixed;background: none;">
@@ -62,6 +63,7 @@
             </select>
             <p><label><input class="uk-checkbox" type="checkbox" id="optionLoop"> Loop</label></p>
             <p><label><input class="uk-checkbox" type="checkbox" id="optionTalkSound"> Play Talk Sound</label></p>
+            <!-- Advanced Options -->
             <ul uk-accordion>
                 <li>
                     <a class="uk-accordion-title" href="#">Advanced Options</a>
@@ -92,16 +94,44 @@
                             <div class="uk-width-3-4">
                                 <input class="uk-input" type="number" min="0" step="1" id="optionY" disabled>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </li>
             </ul>
-            
-
+            <!-- Export Animation -->
+            <ul uk-accordion>
+                <li>
+                    <a class="uk-accordion-title" href="#">Export Animation</a>
+                    <div class="uk-accordion-content">
+                        <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-1-4 uk-margin">
+                                <p>FPS</p>
+                            </div>
+                            <div class="uk-width-3-4">
+                                <input class="uk-input" type="number" min="1" step="1" id="optionFPS" value="30">
+                            </div>
+                            <div class="uk-width-1-1">
+                                <p>File Type</p>
+                            </div>
+                            <div class="uk-width-1-1">
+                                <select class="uk-select" id="optionExportType">
+                                    <option value="video/mp4">.mp4</option>
+                                    <option value="video/webm">.webm</option>
+                                </select>
+                            </div>
+                            <div class="uk-width-1-1">
+                                <button class="uk-button uk-button-default" id="optionExport">Export</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 
+    <!-- Main Canvas -->
     <canvas id="screen"></canvas>
+
     <!-- load it -->
     <script>
         let option = {
@@ -114,7 +144,10 @@
             scale: document.getElementById("optionScale"),
             autoPos: document.getElementById("optionAutoPos"),
             x: document.getElementById("optionX"),
-            y: document.getElementById("optionY")
+            y: document.getElementById("optionY"),
+            FPS: document.getElementById("optionFPS"),
+            export: document.getElementById("optionExport"),
+            exportType: document.getElementById("optionExportType")
         }
 
         // Init models
@@ -170,6 +203,9 @@
         option.y.onchange = function() {
             char.y = this.value;
         }
+        option.export.onclick = function() {
+            exportAnimation(FPS=parseInt(this.value))
+        }
         //Load localStorage if exists
         if(localStorage["blue-archive-res-model"])
             option.models.value = localStorage["blue-archive-res-model"]
@@ -183,5 +219,25 @@
         loadChar(option.models.value);
         
     </script>
+    <!-- Exporter -->
+    <script src="js/canvas-exporter.js"></script>
+    <!-- Modal Exporter -->
+    <div id="modal-exporter" class="uk-flex-top" uk-modal='{"bg-close": false, "esc-close": false}'>
+        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" id="modal-exporter-content">
+            <div id="rendering">
+                <p>Rendering...</p>
+                <progress id="export-progress" class="uk-progress" value="0" max="100"></progress>
+            </div>
+            <div id="complete">
+                <p>Done !</p>
+                <div id="result">
+
+                </div>
+                <p class="uk-text-right">
+                    <button class="uk-button uk-button-primary uk-modal-close" type="button">Close</button>
+                </p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
