@@ -62,6 +62,40 @@
             </select>
             <p><label><input class="uk-checkbox" type="checkbox" id="optionLoop"> Loop</label></p>
             <p><label><input class="uk-checkbox" type="checkbox" id="optionTalkSound"> Play Talk Sound</label></p>
+            <ul uk-accordion>
+                <li>
+                    <a class="uk-accordion-title" href="#">Advanced Options</a>
+                    <div class="uk-accordion-content">
+                        <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-1-1">
+                                <button class="uk-button uk-button-default" id="optionScaleFit">Fit Scale</button>
+                                <button class="uk-button uk-button-default" id="optionScaleHalf">1/2 Scale</button>
+                            </div>
+                            <div class="uk-width-1-4 uk-margin">
+                                <p>Scale</p>
+                            </div>
+                            <div class="uk-width-3-4">
+                                <input class="uk-input" type="number" min="0.01" step="0.01" id="optionScale">
+                            </div>
+                            <div class="uk-width-1-1">
+                                <p><label><input class="uk-checkbox" type="checkbox" id="optionAutoPos" checked> Auto Centerize</label></p>
+                            </div>
+                            <div class="uk-width-1-4 uk-margin">
+                                <p>X</p>
+                            </div>
+                            <div class="uk-width-3-4">
+                                <input class="uk-input" type="number" min="0" step="1" id="optionX" disabled>
+                            </div>
+                            <div class="uk-width-1-4 uk-margin">
+                                <p>Y</p>
+                            </div>
+                            <div class="uk-width-3-4">
+                                <input class="uk-input" type="number" min="0" step="1" id="optionY" disabled>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+            </ul>
             
 
         </div>
@@ -74,7 +108,13 @@
             models: document.getElementById("optionModels"),
             animations: document.getElementById("optionAnimations"),
             loop: document.getElementById("optionLoop"),
-            talkSound: document.getElementById("optionTalkSound")
+            talkSound: document.getElementById("optionTalkSound"),
+            scaleFit: document.getElementById("optionScaleFit"),
+            scaleHalf: document.getElementById("optionScaleHalf"),
+            scale: document.getElementById("optionScale"),
+            autoPos: document.getElementById("optionAutoPos"),
+            x: document.getElementById("optionX"),
+            y: document.getElementById("optionY")
         }
 
         // Init models
@@ -101,7 +141,30 @@
         option.talkSound.onchange = function() {
             localStorage.setItem("blue-archive-res-talkSound", this.checked);
         }
-
+        option.scaleFit.onclick = function() {
+            char.scale.x = char.scale.y = option.scale.value = option.models.value.indexOf("_home") != -1 ? Math.max(app.renderer.height/char.spineData.height, app.renderer.width/char.spineData.width) : Math.min(app.renderer.height/char.spineData.height, app.renderer.width/char.spineData.width);
+        }
+        option.scaleHalf.onclick = function() {
+            char.scale.x = char.scale.y = option.scale.value = 0.5;
+        }
+        option.scale.onchange = function() {
+            char.scale.x = char.scale.y = option.scale.value;
+        }
+        option.autoPos.onchange = function() {
+            if(this.checked) {
+                option.x.disabled = option.y.disabled = true;
+                option.x.value = char.x = app.screen.width/2;
+                option.y.value = char.y = app.screen.height/1;
+            } else {
+                option.x.disabled = option.y.disabled = false;
+            }
+        }
+        option.x.onchange = function() {
+            char.x = this.value;
+        }
+        option.y.onchange = function() {
+            char.y = this.value;
+        }
         //Load localStorage if exists
         if(localStorage["blue-archive-res-model"])
             option.models.value = localStorage["blue-archive-res-model"]

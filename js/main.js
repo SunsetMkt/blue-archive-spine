@@ -51,13 +51,17 @@ function onAssetsLoaded(loader,res) {
     // console.log(char.spineData.width)
 
     // Scaler
-    let scale = (char.spineData.height - app.renderer.height) < (char.spineData.width - app.renderer.width) ? (app.renderer.height / char.spineData.height) : (app.renderer.width / char.spineData.height)
     char.scale.x = 0.5;
     char.scale.y = 0.5;
 
     // Centerize
     char.x = app.screen.width/2;
     char.y = app.screen.height/1;
+
+    //Set option value
+    option.scale.value = 0.5;
+    option.x.value = char.x;
+    option.y.value = char.y;
 
     // Insert animations to index.html
     const animations = res.char.spineData.animations;
