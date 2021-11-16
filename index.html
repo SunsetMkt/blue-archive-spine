@@ -168,11 +168,11 @@
             loadChar(this.value)
         }
         option.animations.onchange = function() {
-            option.talkSound.checked ? playAnimation(this.value) : char.state.setAnimation(0, this.value, option.loop.checked);
+            playAnimation(this.value);
         }
         option.loop.onchange = function() {
             localStorage.setItem("blue-archive-res-loop", this.checked);
-            char.state.setAnimation(0, option.animations.value, this.checked);
+            playAnimation(option.animations.value);
         }
         option.talkSound.onchange = function() {
             localStorage.setItem("blue-archive-res-talkSound", this.checked);

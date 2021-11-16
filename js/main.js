@@ -3,6 +3,7 @@ let char;
 let audioList = []
 let audios;
 let isCharacterLoaded = false;
+let debug = false; //set via console
 
 function reCanvas() {
     audios = JSON.parse(httpGet("./data/audio.json"));
@@ -82,77 +83,40 @@ function onAssetsLoaded(loader,res) {
     } else {
         char.state.setAnimation(0, animations[0].name, option.loop.checked);
     }
+    // Voiceline Listener / Handler
+    char.state.addListener({
+        event: function(entry, event) {
+            if(debug)
+                console.log(event)
+            if(event.stringValue == '')
+                return;
+            if(!option.talkSound.checked)
+                return;
+            let charName = option.models.options[option.models.selectedIndex].text.replace("_home", "").toLowerCase().replace("_", "")
+            //Play
+            if(charName == 'mashiroswimsuit')
+                charName = 'CH0061';
+            let voice = new Howl({
+                src: [`./audio/JP_${charName}/${event.stringValue}.ogg`]
+            });
+            voice.once('load', function() {
+                voice.play();
+            })
+            audioList.push(voice);
+        }
+    })
+    //Add to main canvas
     app.stage.addChild(char);
     isCharacterLoaded = true;
 }
 
 function playAnimation(name) {
-    if(!isCharacterLoaded)
-        return;
-    // remove previous audio
     if(audioList.length != 0) {
         for(var i in audioList) {
             audioList[i].stop();
         }
         audioList = [];
     }
-    if(name.indexOf("Talk") != -1) {
-        //Play Audio
-        let audioIndex = parseInt(name.split("Talk_")[1].split("_")[0]) //01 to 1
-        let files = {}
-        //Get sounds from events, fk up for falsename
-        // for(var i in char.spineData.events) {
-        //     if(char.spineData.events[i].audioPath == null)
-        //         continue;
-        //     let parent = char.spineData.events[i].audioPath.split("/")[char.spineData.events[i].audioPath.split("/").length - 1].split("_")[0];
-        //     let fname = char.spineData.events[i].audioPath.split("/")[char.spineData.events[i].audioPath.split("/").length - 1].split(".w")[0].replace(".ogg", "") + ".ogg"
-        //     let audioIndex = parseInt(fname.split("MemorialLobby_")[1].split("_")[0])
-        //     if(files[audioIndex] == undefined) {
-        //         files[audioIndex] = [];
-        //     }
-        //     files[audioIndex].push(`./audio/JP_${parent}/${fname}`)
-        // }
-        // //Randomize
-        // var audio = files[audioIndex][Math.floor(Math.random() * files[audioIndex].length)];
-        // console.log(files)
-        // //Play
-        // var sound = new Howl({
-        //     src: [audio],
-        //     html5: true
-        //   });
-        // sound.once('load', function(){
-        //     char.state.setAnimation(0, name, option.loop.checked);
-        //     setTimeout(() => {
-        //         sound.play();
-        //     }, 400);
-        //     audioList.push(sound);
-        // });
 
-        //Get sounds
-        let charName = option.models.options[option.models.selectedIndex].text.replace("_home", "").toLowerCase().replace("_", "")
-        let audioPool = audios[charName][audioIndex];
-        //Play
-        for(var i=0;i<audioPool.length;i++) {
-            var sound = new Howl({
-                src: [audioPool[i]]
-              });
-            audioList.push(sound);
-        }
-        for(var j=1;j<audioList.length;j++) {
-            audioList[j-1].on('end', function() {
-                audioList.splice(0, 1);
-                setTimeout(() => {
-                    audioList[0].play();
-                }, 900);
-            })
-        }
-        char.state.setAnimation(0, name, option.loop.checked);
-        audioList[0].once('load', function() {
-            setTimeout(() => {
-                audioList[0].play();
-            }, 387);
-        });
-    } else {
-        char.state.setAnimation(0, name, option.loop.checked);
-    }
+    char.state.setAnimation(0, name, option.loop.checked);
 }
