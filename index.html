@@ -108,7 +108,7 @@
                                 <p>FPS</p>
                             </div>
                             <div class="uk-width-3-4">
-                                <input class="uk-input" type="number" min="1" step="1" id="optionFPS" value="30">
+                                <input class="uk-input" type="number" min="1" step="1" id="optionFPS" value="60">
                             </div>
                             <div class="uk-width-1-1">
                                 <p>File Type</p>
@@ -204,7 +204,7 @@
             char.y = this.value;
         }
         option.export.onclick = function() {
-            exportAnimation(FPS=parseInt(this.value))
+            exportAnimation(FPS=parseInt(option.FPS.value))
         }
         //Load localStorage if exists
         if(localStorage["blue-archive-res-model"])
