@@ -200,11 +200,13 @@
                 option.x.disabled = option.y.disabled = false;
             }
         }
-        option.x.onchange = function() {
-            char.x = this.value;
+        option.x.onchange = function(e) {
+            if(isCharacterLoaded)
+                char.x = this.value;
         }
         option.y.onchange = function() {
-            char.y = this.value;
+            if(isCharacterLoaded)
+                char.y = this.value;
         }
         option.export.onclick = function() {
             exportAnimation(FPS=parseInt(option.FPS.value))
@@ -234,7 +236,7 @@
         canvasScreen.onmousemove = function(e) {
             canMouseX = parseInt(e.clientX-canvasX)
             canMouseY = parseInt(e.clientY-canvasY)
-            if(isDragging && (initMouseX - canMouseX != 0 || initMouseY - canMouseY != 0)) {
+            if(isDragging && (initMouseX - canMouseX != 0 || initMouseY - canMouseY != 0) && isCharacterLoaded) {
                 option.autoPos.checked = false;
                 // console.log(initMouseX - canMouseX, initMouseY - canMouseY)
                 char.x = option.x.value = -(canvasX + initMouseX - canMouseX); 
@@ -247,7 +249,7 @@
         window.addEventListener('resize', function(event){
             canvasScreen.width = window.innerWidth;
             canvasScreen.height = window.innerHeight;
-            if(option.autoPos.checked) {
+            if(option.autoPos.checked && isCharacterLoaded) {
                 char.x = option.x.value = window.innerWidth/2;
                 char.y = option.y.value = window.innerHeight/1;
             }
