@@ -55,8 +55,8 @@ function onAssetsLoaded(loader,res) {
     char.scale.y = 0.5;
 
     // Centerize
-    char.x = app.screen.width/2;
-    char.y = app.screen.height/1;
+    char.x = window.innerWidth/2;
+    char.y = window.innerHeight/1;
 
     //Set option value
     option.scale.value = 0.5;
