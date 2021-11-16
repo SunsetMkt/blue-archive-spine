@@ -1,5 +1,5 @@
 // Main
-function exportAnimation(FPS=30) {
+function exportAnimation(FPS=60) {
     let exportCanvas = document.createElement("canvas")
     exportCanvas.id = 'export-canvas';
     exportCanvas.style.display = 'none';
@@ -27,7 +27,7 @@ function exportAnimation(FPS=30) {
             appExport.stage.addChild(exportChar);
 
             // Export Section
-            let videoStream = exportCanvas.captureStream(60); //30fps
+            let videoStream = exportCanvas.captureStream(FPS); //default to 60
             let mediaRecorder = new MediaRecorder(videoStream);
 
             let chunks = [];
@@ -60,10 +60,9 @@ function exportAnimation(FPS=30) {
             UIkit.modal(document.getElementById("modal-exporter")).show()
             // Progressbar
             document.getElementById("export-progress").value = 0;
-            let progress = function() {
+            let progress = setInterval(function() {
                 document.getElementById("export-progress").value += 1;
-            }
-            setInterval(progress, animLength * 9);
+            }, animLength * 10);
             
             // Record
             mediaRecorder.start();
