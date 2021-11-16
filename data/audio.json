@@ -1,6 +1,6 @@
 {
-      "Airi": {},
-      "Akane": {
+      "airi": {},
+      "akane": {
             "1": [
                   "./audio/JP_Akane/Akane_MemorialLobby_1_1.ogg",
                   "./audio/JP_Akane/Akane_MemorialLobby_1_2.ogg"
@@ -17,7 +17,7 @@
                   "./audio/JP_Akane/Akane_MemorialLobby_4_2.ogg"
             ]
       },
-      "Akari": {
+      "akari": {
             "1": [
                   "./audio/JP_Akari/Akari_MemorialLobby_1_1.ogg",
                   "./audio/JP_Akari/Akari_MemorialLobby_1_2.ogg"
@@ -41,7 +41,7 @@
                   "./audio/JP_Akari/Akari_MemorialLobby_5_3.ogg"
             ]
       },
-      "Aris": {
+      "aris": {
             "1": [
                   "./audio/JP_Aris/Aris_MemorialLobby_1.ogg"
             ],
@@ -63,8 +63,8 @@
                   "./audio/JP_Aris/Aris_MemorialLobby_5_2.ogg"
             ]
       },
-      "Arona": {},
-      "Aru": {
+      "arona": {},
+      "aru": {
             "0": [
                   "./audio/JP_Aru/Aru_MemorialLobby_0.ogg"
             ],
@@ -92,7 +92,7 @@
                   "./audio/JP_Aru/Aru_MemorialLobby_6.ogg"
             ]
       },
-      "Asuna": {
+      "asuna": {
             "1": [
                   "./audio/JP_Asuna/Asuna_MemorialLobby_1.ogg"
             ],
@@ -109,7 +109,7 @@
                   "./audio/JP_Asuna/Asuna_MemorialLobby_5.ogg"
             ]
       },
-      "Ayane": {
+      "ayane": {
             "0": [
                   "./audio/JP_Ayane/Ayane_MemorialLobby_0.ogg"
             ],
@@ -134,7 +134,7 @@
                   "./audio/JP_Ayane/Ayane_MemorialLobby_5_2.ogg"
             ]
       },
-      "Azusa": {
+      "azusa": {
             "0": [
                   "./audio/JP_Azusa/Azusa_MemorialLobby_0_1.ogg",
                   "./audio/JP_Azusa/Azusa_MemorialLobby_0_2.ogg",
@@ -165,7 +165,7 @@
                   "./audio/JP_Azusa/Azusa_MemorialLobby_6_2.ogg"
             ]
       },
-      "AzusaSwimsuit": {
+      "azusaswimsuit": {
             "1": [
                   "./audio/JP_AzusaSwimsuit/AzusaSwimsuit_MemorialLobby_1_1.ogg",
                   "./audio/JP_AzusaSwimsuit/AzusaSwimsuit_MemorialLobby_1_2.ogg"
@@ -187,7 +187,7 @@
                   "./audio/JP_AzusaSwimsuit/AzusaSwimsuit_MemorialLobby_5_2.ogg"
             ]
       },
-      "CH0058": {
+      "ch0058": {
             "1": [
                   "./audio/JP_CH0058/CH0058_MemorialLobby_1.ogg"
             ],
@@ -205,7 +205,7 @@
                   "./audio/JP_CH0058/CH0058_MemorialLobby_5.ogg"
             ]
       },
-      "CH0060": {
+      "ch0060": {
             "1": [
                   "./audio/JP_CH0060/CH0060_MemorialLobby_1_1.ogg",
                   "./audio/JP_CH0060/CH0060_MemorialLobby_1_2.ogg"
@@ -226,7 +226,7 @@
                   "./audio/JP_CH0060/CH0060_MemorialLobby_5_2.ogg"
             ]
       },
-      "CH0061": {
+      "ch0061": {
             "1": [
                   "./audio/JP_CH0061/CH0061_MemorialLobby_1.ogg"
             ],
@@ -245,7 +245,7 @@
                   "./audio/JP_CH0061/CH0061_MemorialLobby_5.ogg"
             ]
       },
-      "CH0063": {
+      "ch0063": {
             "1": [
                   "./audio/JP_CH0063/CH0063_MemorialLobby_1_1.ogg",
                   "./audio/JP_CH0063/CH0063_MemorialLobby_1_2.ogg"
@@ -267,7 +267,7 @@
                   "./audio/JP_CH0063/CH0063_MemorialLobby_5_2.ogg"
             ]
       },
-      "CH0064": {
+      "ch0064": {
             "0": [
                   "./audio/JP_CH0064/CH0064_MemorialLobby_0.ogg"
             ],
@@ -286,7 +286,7 @@
                   "./audio/JP_CH0064/CH0064_MemorialLobby_4.ogg"
             ]
       },
-      "CH0066": {
+      "ch0066": {
             "1": [
                   "./audio/JP_CH0066/CH0066_MemorialLobby_1_1.ogg",
                   "./audio/JP_CH0066/CH0066_MemorialLobby_1_2.ogg"
@@ -305,7 +305,7 @@
                   "./audio/JP_CH0066/CH0066_MemorialLobby_5.ogg"
             ]
       },
-      "Cherino": {
+      "cherino": {
             "0": [
                   "./audio/JP_Cherino/Cherino_MemorialLobby_0_1.ogg",
                   "./audio/JP_Cherino/Cherino_MemorialLobby_0_2.ogg",
@@ -333,9 +333,9 @@
                   "./audio/JP_Cherino/Cherino_MemorialLobby_5_4.ogg"
             ]
       },
-      "Chinatsu": {},
-      "Chise": {},
-      "Eimi": {
+      "chinatsu": {},
+      "chise": {},
+      "eimi": {
             "1": [
                   "./audio/JP_Eimi/Eimi_MemorialLobby_1_1.ogg",
                   "./audio/JP_Eimi/Eimi_MemorialLobby_1_2.ogg"
@@ -356,7 +356,7 @@
                   "./audio/JP_Eimi/Eimi_MemorialLobby_5_2.ogg"
             ]
       },
-      "Fuuka": {
+      "fuuka": {
             "1": [
                   "./audio/JP_Fuuka/Fuuka_MemorialLobby_1.ogg"
             ],
@@ -374,8 +374,8 @@
                   "./audio/JP_Fuuka/Fuuka_MemorialLobby_5_2.ogg"
             ]
       },
-      "Hanae": {},
-      "Hanako": {
+      "hanae": {},
+      "hanako": {
             "1": [
                   "./audio/JP_Hanako/Hanako_MemorialLobby_1_1.ogg",
                   "./audio/JP_Hanako/Hanako_MemorialLobby_1_2.ogg"
@@ -393,7 +393,7 @@
                   "./audio/JP_Hanako/Hanako_MemorialLobby_4_2.ogg"
             ]
       },
-      "Hare": {
+      "hare": {
             "1": [
                   "./audio/JP_Hare/Hare_MemorialLobby_1_1.ogg",
                   "./audio/JP_Hare/Hare_MemorialLobby_1_2.ogg"
@@ -420,8 +420,8 @@
                   "./audio/JP_Hare/Hare_MemorialLobby_6_2.ogg"
             ]
       },
-      "Haruka": {},
-      "Haruna": {
+      "haruka": {},
+      "haruna": {
             "1": [
                   "./audio/JP_Haruna/Haruna_MemorialLobby_1_1.ogg",
                   "./audio/JP_Haruna/Haruna_MemorialLobby_1_2.ogg",
@@ -445,7 +445,7 @@
                   "./audio/JP_Haruna/Haruna_MemorialLobby_5_2.ogg"
             ]
       },
-      "Hasumi": {
+      "hasumi": {
             "1": [
                   "./audio/JP_Hasumi/Hasumi_MemorialLobby_1.ogg"
             ],
@@ -463,7 +463,7 @@
                   "./audio/JP_Hasumi/Hasumi_MemorialLobby_5_2.ogg"
             ]
       },
-      "Hibiki": {
+      "hibiki": {
             "1": [
                   "./audio/JP_Hibiki/Hibiki_MemorialLobby_1_1.ogg",
                   "./audio/JP_Hibiki/Hibiki_MemorialLobby_1_2.ogg",
@@ -484,7 +484,7 @@
                   "./audio/JP_Hibiki/Hibiki_MemorialLobby_4_2.ogg"
             ]
       },
-      "Hihumi": {
+      "hihumi": {
             "1": [
                   "./audio/JP_Hihumi/Hihumi_MemorialLobby_1_1.ogg",
                   "./audio/JP_Hihumi/Hihumi_MemorialLobby_1_2.ogg"
@@ -509,7 +509,7 @@
                   "./audio/JP_Hihumi/Hihumi_MemorialLobby_6.ogg"
             ]
       },
-      "Hina": {
+      "hina": {
             "1": [
                   "./audio/JP_Hina/Hina_MemorialLobby_1_1.ogg",
                   "./audio/JP_Hina/Hina_MemorialLobby_1_2.ogg"
@@ -528,7 +528,7 @@
                   "./audio/JP_Hina/Hina_MemorialLobby_4_2.ogg"
             ]
       },
-      "Hoshino": {
+      "hoshino": {
             "0": [
                   "./audio/JP_Hoshino/Hoshino_MemorialLobby_0.ogg"
             ],
@@ -544,7 +544,7 @@
                   "./audio/JP_Hoshino/Hoshino_MemorialLobby_3_3.ogg"
             ]
       },
-      "Iori": {
+      "iori": {
             "1": [
                   "./audio/JP_Iori/Iori_MemorialLobby_1.ogg"
             ],
@@ -565,8 +565,8 @@
                   "./audio/JP_Iori/Iori_MemorialLobby_5_2.ogg"
             ]
       },
-      "Izumi": {},
-      "IzumiSwimsuit": {
+      "izumi": {},
+      "izumiswimsuit": {
             "1": [
                   "./audio/JP_IzumiSwimsuit/IzumiSwimsuit_MemorialLobby_1.ogg"
             ],
@@ -585,7 +585,7 @@
                   "./audio/JP_IzumiSwimsuit/IzumiSwimsuit_MemorialLobby_5_2.ogg"
             ]
       },
-      "Izuna": {
+      "izuna": {
             "1": [
                   "./audio/JP_Izuna/Izuna_MemorialLobby_1_1.ogg",
                   "./audio/JP_Izuna/Izuna_MemorialLobby_1_2.ogg"
@@ -606,8 +606,8 @@
                   "./audio/JP_Izuna/Izuna_MemorialLobby_5_2.ogg"
             ]
       },
-      "Juri": {},
-      "Karin": {
+      "juri": {},
+      "karin": {
             "1": [
                   "./audio/JP_Karin/Karin_MemorialLobby_1_1.ogg",
                   "./audio/JP_Karin/Karin_MemorialLobby_1_2.ogg"
@@ -627,7 +627,7 @@
                   "./audio/JP_Karin/Karin_MemorialLobby_5.ogg"
             ]
       },
-      "Kayoko": {
+      "kayoko": {
             "1": [
                   "./audio/JP_Kayoko/Kayoko_MemorialLobby_1.ogg"
             ],
@@ -647,7 +647,7 @@
                   "./audio/JP_Kayoko/Kayoko_MemorialLobby_5_2.ogg"
             ]
       },
-      "Kirino": {
+      "kirino": {
             "1": [
                   "./audio/JP_Kirino/Kirino_MemorialLobby_1.ogg"
             ],
@@ -666,7 +666,7 @@
                   "./audio/JP_Kirino/Kirino_MemorialLobby_5_2.ogg"
             ]
       },
-      "Koharu": {
+      "koharu": {
             "1": [
                   "./audio/JP_Koharu/Koharu_MemorialLobby_1_1.ogg",
                   "./audio/JP_Koharu/Koharu_MemorialLobby_1_2.ogg"
@@ -687,10 +687,10 @@
                   "./audio/JP_Koharu/Koharu_MemorialLobby_5_2.ogg"
             ]
       },
-      "Kotama": {},
-      "Kotori": {},
-      "Main": {},
-      "Maki": {
+      "kotama": {},
+      "kotori": {},
+      "main": {},
+      "maki": {
             "1": [
                   "./audio/JP_Maki/Maki_MemorialLobby_1_1.ogg",
                   "./audio/JP_Maki/Maki_MemorialLobby_1_2.ogg"
@@ -713,7 +713,7 @@
                   "./audio/JP_Maki/Maki_MemorialLobby_5_2.ogg"
             ]
       },
-      "Mashiro": {
+      "mashiro": {
             "1": [
                   "./audio/JP_Mashiro/Mashiro_MemorialLobby_1.ogg"
             ],
@@ -731,7 +731,7 @@
                   "./audio/JP_Mashiro/Mashiro_MemorialLobby_5_2.ogg"
             ]
       },
-      "Midori": {
+      "midori": {
             "1": [
                   "./audio/JP_Midori/Midori_MemorialLobby_1_1.ogg",
                   "./audio/JP_Midori/Midori_MemorialLobby_1_2.ogg"
@@ -749,7 +749,7 @@
                   "./audio/JP_Midori/Midori_MemorialLobby_4_3.ogg"
             ]
       },
-      "Momoi": {
+      "momoi": {
             "1": [
                   "./audio/JP_Momoi/Momoi_MemorialLobby_1.ogg",
                   "./audio/JP_Momoi/Momoi_MemorialLobby_1_1.ogg",
@@ -771,8 +771,8 @@
                   "./audio/JP_Momoi/Momoi_MemorialLobby_5_2.ogg"
             ]
       },
-      "Momoka": {},
-      "Mutsuki": {
+      "momoka": {},
+      "mutsuki": {
             "1": [
                   "./audio/JP_Mutsuki/Mutsuki_MemorialLobby_1_1.ogg",
                   "./audio/JP_Mutsuki/Mutsuki_MemorialLobby_1_2.ogg"
@@ -797,7 +797,7 @@
                   "./audio/JP_Mutsuki/Mutsuki_MemorialLobby_6.ogg"
             ]
       },
-      "Neru": {
+      "neru": {
             "1": [
                   "./audio/JP_Neru/Neru_MemorialLobby_1_1.ogg",
                   "./audio/JP_Neru/Neru_MemorialLobby_1_2.ogg"
@@ -814,7 +814,7 @@
                   "./audio/JP_Neru/Neru_MemorialLobby_4.ogg"
             ]
       },
-      "Nodoka": {
+      "nodoka": {
             "1": [
                   "./audio/JP_Nodoka/Nodoka_MemorialLobby_1_1.ogg",
                   "./audio/JP_Nodoka/Nodoka_MemorialLobby_1_2.ogg",
@@ -834,7 +834,7 @@
                   "./audio/JP_Nodoka/Nodoka_MemorialLobby_4_2.ogg"
             ]
       },
-      "Nonomi": {
+      "nonomi": {
             "1": [
                   "./audio/JP_Nonomi/Nonomi_MemorialLobby_1.ogg"
             ],
@@ -859,9 +859,9 @@
                   "./audio/JP_Nonomi/Nonomi_MemorialLobby_6_3.ogg"
             ]
       },
-      "Pina": {},
-      "Rin": {},
-      "Saya": {
+      "pina": {},
+      "rin": {},
+      "saya": {
             "1": [
                   "./audio/JP_Saya/Saya_MemorialLobby_1_1.ogg",
                   "./audio/JP_Saya/Saya_MemorialLobby_1_2.ogg"
@@ -882,7 +882,7 @@
                   "./audio/JP_Saya/Saya_MemorialLobby_5.ogg"
             ]
       },
-      "SayaCasual": {
+      "sayacasual": {
             "1": [
                   "./audio/JP_SayaCasual/SayaCasual_MemorialLobby_1_1.ogg",
                   "./audio/JP_SayaCasual/SayaCasual_MemorialLobby_1_2.ogg"
@@ -902,7 +902,7 @@
                   "./audio/JP_SayaCasual/SayaCasual_MemorialLobby_5_2.ogg"
             ]
       },
-      "Serika": {
+      "serika": {
             "1": [
                   "./audio/JP_Serika/Serika_MemorialLobby_1_1.ogg",
                   "./audio/JP_Serika/Serika_MemorialLobby_1_2.ogg"
@@ -932,9 +932,9 @@
                   "./audio/JP_Serika/Serika_MemorialLobby_6_4.ogg"
             ]
       },
-      "Serina": {},
-      "Shimiko": {},
-      "Shiroko": {
+      "serina": {},
+      "shimiko": {},
+      "shiroko": {
             "1": [
                   "./audio/JP_Shiroko/Shiroko_MemorialLobby_1.ogg"
             ],
@@ -952,7 +952,7 @@
                   "./audio/JP_Shiroko/Shiroko_MemorialLobby_5_2.ogg"
             ]
       },
-      "ShirokoRidingSuit": {
+      "shirokoridingsuit": {
             "1": [
                   "./audio/JP_ShirokoRidingSuit/ShirokoRidingSuit_MemorialLobby_1.ogg"
             ],
@@ -970,7 +970,7 @@
                   "./audio/JP_ShirokoRidingSuit/ShirokoRidingSuit_MemorialLobby_5.ogg"
             ]
       },
-      "Shizuko": {
+      "shizuko": {
             "1": [
                   "./audio/JP_Shizuko/Shizuko_MemorialLobby_1.ogg"
             ],
@@ -987,7 +987,7 @@
                   "./audio/JP_Shizuko/Shizuko_MemorialLobby_4_2.ogg"
             ]
       },
-      "Shun": {
+      "shun": {
             "1": [
                   "./audio/JP_Shun/Shun_MemorialLobby_1.ogg"
             ],
@@ -1006,8 +1006,8 @@
                   "./audio/JP_Shun/Shun_MemorialLobby_5.ogg"
             ]
       },
-      "Sora": {},
-      "Sumire": {
+      "sora": {},
+      "sumire": {
             "0": [
                   "./audio/JP_Sumire/Sumire_MemorialLobby_0.ogg"
             ],
@@ -1031,8 +1031,8 @@
                   "./audio/JP_Sumire/Sumire_MemorialLobby_5_3.ogg"
             ]
       },
-      "Suzumi": {},
-      "Tsubaki": {
+      "suzumi": {},
+      "tsubaki": {
             "1": [
                   "./audio/JP_Tsubaki/Tsubaki_MemorialLobby_1.ogg"
             ],
@@ -1054,7 +1054,7 @@
                   "./audio/JP_Tsubaki/Tsubaki_MemorialLobby_5_3.ogg"
             ]
       },
-      "Tsurugi": {
+      "tsurugi": {
             "1": [
                   "./audio/JP_Tsurugi/Tsurugi_MemorialLobby_1.ogg"
             ],
@@ -1068,10 +1068,10 @@
                   "./audio/JP_Tsurugi/Tsurugi_MemorialLobby_4.ogg"
             ]
       },
-      "Tutorial": {},
-      "Utaha": {},
-      "Yoshimi": {},
-      "Yuuka": {
+      "tutorial": {},
+      "utaha": {},
+      "yoshimi": {},
+      "yuuka": {
             "1": [
                   "./audio/JP_Yuuka/Yuuka_MemorialLobby_1_1.ogg",
                   "./audio/JP_Yuuka/Yuuka_MemorialLobby_1_2.ogg"
@@ -1098,7 +1098,7 @@
                   "./audio/JP_Yuuka/Yuuka_MemorialLobby_6_2.ogg"
             ]
       },
-      "Yuzu": {
+      "yuzu": {
             "1": [
                   "./audio/JP_Yuzu/Yuzu_MemorialLobby_1.ogg"
             ],
@@ -1113,7 +1113,7 @@
                   "./audio/JP_Yuzu/Yuzu_MemorialLobby_4.ogg"
             ]
       },
-      "Zunko": {
+      "zunko": {
             "1": [
                   "./audio/JP_Zunko/Zunko_MemorialLobby_1_1.ogg",
                   "./audio/JP_Zunko/Zunko_MemorialLobby_1_2.ogg"

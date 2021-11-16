@@ -129,18 +129,7 @@ function playAnimation(name) {
         // });
 
         //Get sounds
-        let charName = option.models.options[option.models.selectedIndex].text.replace("_home", "");
-        //Camalize
-        if(charName.indexOf("_") != -1) {
-            charName = charName.toLowerCase().replace(/([-_][a-z])/g, group =>
-            group
-            .toUpperCase()
-            .replace('-', '')
-            .replace('_', '')
-            );
-        }
-        charName = charName.charAt(0).toUpperCase() + charName.slice(1);
-
+        let charName = option.models.options[option.models.selectedIndex].text.replace("_home", "").toLowerCase().replace("_", "")
         let audioPool = audios[charName][audioIndex];
         //Play
         for(var i=0;i<audioPool.length;i++) {
