@@ -92,10 +92,24 @@ function onAssetsLoaded(loader,res) {
                 return;
             if(!option.talkSound.checked)
                 return;
-            let charName = option.models.options[option.models.selectedIndex].text.replace("_home", "").toLowerCase().replace("_", "")
+            let charName = option.models.options[option.models.selectedIndex].text.replace("_home", "")
+            //Camalize
+            if(charName.indexOf("_") != -1) {
+                charName = charName.toLowerCase().replace(/([-_][a-z])/g, group =>
+                group
+                .toUpperCase()
+                .replace('-', '')
+                .replace('_', '')
+                );
+            }
+            charName = charName.charAt(0).toUpperCase() + charName.slice(1);
+            if(debug)
+                console.log(charName)
             //Play
-            if(charName == 'mashiroswimsuit')
+            if(charName == 'MashiroSwimsuit')
                 charName = 'CH0061';
+            if(charName == 'ShirokoRidingsuit')
+                charName = 'ShirokoRidingSuit'
             let voice = new Howl({
                 src: [`./audio/JP_${charName}/${event.stringValue}.ogg`]
             });
