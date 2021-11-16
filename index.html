@@ -82,6 +82,9 @@
                             <div class="uk-width-1-1">
                                 <p><label><input class="uk-checkbox" type="checkbox" id="optionAutoPos" checked> Auto Centerize</label></p>
                             </div>
+                            <div class="uk-width-1-1">
+                                <p>You can also move it by dragging.</p>
+                            </div>
                             <div class="uk-width-1-4 uk-margin">
                                 <p>X</p>
                             </div>
@@ -191,8 +194,8 @@
                 return;
             if(this.checked) {
                 option.x.disabled = option.y.disabled = true;
-                option.x.value = char.x = app.screen.width/2;
-                option.y.value = char.y = app.screen.height/1;
+                option.x.value = char.x = window.innerWidth/2;
+                option.y.value = char.y = window.innerHeight/1;
             } else {
                 option.x.disabled = option.y.disabled = false;
             }
@@ -206,6 +209,49 @@
         option.export.onclick = function() {
             exportAnimation(FPS=parseInt(option.FPS.value))
         }
+        // Draggable Canvas
+        let canvasScreen = document.getElementById("screen")
+        let isDragging = false;
+        let canMouseX, canMouseY;
+        let initMouseX, initMouseY;
+        let canvasX, canvasY;
+        canvasScreen.onmousedown = function(e) {
+            // canvasX = -canvasScreen.offsetLeft;
+            // canvasY = -canvasScreen.offsetTop;
+            canvasX = -char.x;
+            canvasY = -char.y;
+            initMouseX = parseInt(e.clientX-canvasX)
+            initMouseY = parseInt(e.clientY-canvasY)
+
+            isDragging = true;
+        }
+        canvasScreen.onmouseup = function(e) {
+            isDragging = false;
+        }
+        canvasScreen.onmouseout = function(e) {
+            isDragging = false;
+        }
+        canvasScreen.onmousemove = function(e) {
+            canMouseX = parseInt(e.clientX-canvasX)
+            canMouseY = parseInt(e.clientY-canvasY)
+            if(isDragging && (initMouseX - canMouseX != 0 || initMouseY - canMouseY != 0)) {
+                option.autoPos.checked = false;
+                // console.log(initMouseX - canMouseX, initMouseY - canMouseY)
+                char.x = option.x.value = -(canvasX + initMouseX - canMouseX); 
+                char.y = option.y.value = -(canvasY + initMouseY - canMouseY);
+                // canvasScreen.style.left = -(canvasX + initMouseX - canMouseX) + "px";
+                // canvasScreen.style.top = -(canvasY + initMouseY - canMouseY) + "px";
+            }
+        }
+        // Resize event
+        window.addEventListener('resize', function(event){
+            canvasScreen.width = window.innerWidth;
+            canvasScreen.height = window.innerHeight;
+            if(option.autoPos.checked) {
+                char.x = option.x.value = window.innerWidth/2;
+                char.y = option.y.value = window.innerHeight/1;
+            }
+        });
         //Load localStorage if exists
         if(localStorage["blue-archive-res-model"])
             option.models.value = localStorage["blue-archive-res-model"]
