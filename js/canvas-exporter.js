@@ -16,7 +16,7 @@ function exportAnimation(FPS=60) {
         }
     );
     appExport.loader
-        .add('char', `/assets/${option.models.value}`)
+        .add('char', `/blue-archive-spine/assets/${option.models.value}`)
         .load(function(loader, res) {
             let exportChar = new PIXI.spine.Spine(res.char.spineData);
             exportChar.scale.x = exportChar.scale.y = char.scale.x;
