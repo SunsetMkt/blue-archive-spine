@@ -1,0 +1,43 @@
+name: Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 19 * * *'
+
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Installing requirements
+        run: |
+          pip install -r requirements.txt 
+      - name: Building UnityPack
+        run: |
+          python setup.py build
+      - name: Installing UnityPack
+        run: |
+          python setup.py install --user
+      - name: Retrieving models
+        run: |
+          python ./py/getModels.py
+      - name: Generating models.json
+        run: |
+          python ./py/generateModelsJson.py
+      - name: Generating audio.json
+        run: |
+          python ./py/generateAudioJson.py
+      - name: Commit files
+        run: |
+          git config --local user.email "ucihaibna@yahoo.com"
+          git config --local user.name "respectZ"
+          git add .
+          git commit -m "[Update] $(cat ./data/version.txt)"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true

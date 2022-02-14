@@ -3,7 +3,7 @@ let char;
 let audioList = []
 let audios;
 let isCharacterLoaded = false;
-let debug = false; //set via console
+let debug = 1; //set via console
 
 function reCanvas() {
     audios = JSON.parse(httpGet("./data/audio.json"));
@@ -16,7 +16,7 @@ function reCanvas() {
     );
 }
 
-function loadChar(model="Shiroko_home/Shiroko_home.skel") {
+function loadChar(model="./assets/spine/shiroko_home/Shiroko_home.skel") {
     isCharacterLoaded = false;
     // remove previous spine
     if(app.stage.children.length > 0) {
@@ -33,7 +33,7 @@ function loadChar(model="Shiroko_home/Shiroko_home.skel") {
 
     // load new spine
     app.loader
-        .add('char', `/blue-archive-spine/assets/${model}`)
+        .add('char', `./${model}`)
         .load(onAssetsLoaded);
 }
 
@@ -111,7 +111,7 @@ function onAssetsLoaded(loader,res) {
             if(charName == 'ShirokoRidingsuit')
                 charName = 'ShirokoRidingSuit'
             let voice = new Howl({
-                src: [`./audio/JP_${charName}/${event.stringValue}.ogg`]
+                src: [audios[event.stringValue]]
             });
             voice.once('load', function() {
                 voice.play();
