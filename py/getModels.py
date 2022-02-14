@@ -127,7 +127,7 @@ if __name__ == "__main__":
 
     ver = getVersion()
     if(os.path.isfile("./data/version.txt")):
-        with open("./data/version.txt", "w") as f:
+        with open("./data/version.txt", "r") as f:
             ver_temp = f.read()
         if str(ver[0]) == str(ver_temp):
             print(f"[{ver[0]}] No new update. Stopping.")
