@@ -157,8 +157,8 @@
         let dataModels = JSON.parse(httpGet("./data/models.json"))
         for(var i in dataModels) {
             let opt = document.createElement("option");
-            opt.value = `${i}/${dataModels[i]}`;
-            opt.innerHTML = dataModels[i].substr(0, dataModels[i].length - 5);
+            opt.value = dataModels[i];
+            opt.innerHTML = i;
             option.models.appendChild(opt);
         }
 
@@ -255,8 +255,11 @@
             }
         });
         //Load localStorage if exists
-        if(localStorage["blue-archive-res-model"])
+        if(localStorage["blue-archive-res-model"]) {
             option.models.value = localStorage["blue-archive-res-model"]
+        } else {
+            option.models.value = option.models.children[0].value;
+        }
         if(localStorage["blue-archive-res-loop"])
             option.loop.checked = localStorage["blue-archive-res-loop"]
         if(localStorage["blue-archive-res-talkSound"])
