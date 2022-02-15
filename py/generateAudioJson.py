@@ -32,6 +32,7 @@ if __name__ == "__main__":
                 print(fname)
                 if os.path.isfile(path):
                     print("Already downloaded. Skipping.")
+                    data[keyEvent] = path
                     continue
                 if not(os.path.isdir("./assets/audio")):
                     os.mkdir("./assets/audio/")
