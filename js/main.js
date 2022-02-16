@@ -3,7 +3,7 @@ let char;
 let audioList = []
 let audios;
 let isCharacterLoaded = false;
-let debug = 1; //set via console
+let debug = 0; //set via console
 
 function reCanvas() {
     audios = JSON.parse(httpGet("./data/audio.json"));
@@ -113,9 +113,14 @@ function onAssetsLoaded(loader,res) {
             let voice = new Howl({
                 src: [audios[event.stringValue]]
             });
-            voice.once('load', function() {
+            // If already loaded, play it
+            if(voice.state() == 'loaded')
                 voice.play();
-            })
+            else if(voice.state() == 'loading') {
+                voice.on('load', function() {
+                    voice.play();
+                })
+            }
             audioList.push(voice);
         }
     })
