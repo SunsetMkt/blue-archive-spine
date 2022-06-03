@@ -31,7 +31,10 @@ def getVersion():
     Return Blue Archive build version and build number.
     '''
     src = requests.get(ba_ps).text
-    ver = src.split('<div class="IQ1z0d"><span class="htlgb">')[4].split('</span></div></span></div><div class="hAyfc">')[0]
+    # lmao python sucks
+    ver = eval(src.split("AF_initDataCallback({key: 'ds:4', hash: ")[1].split("'")[2].split("data:")[1].split(", sideChannel: {}")[0].replace("null", "None").replace("false", "False").replace("true", "True"))
+    ver = ver[1][2][140][0][0][0]
+    # ver = src.split('<div class="IQ1z0d"><span class="htlgb">')[4].split('</span></div></span></div><div class="hAyfc">')[0]
     return (ver, int(ver.split(".")[-1]))
 
 def updateBaData():
