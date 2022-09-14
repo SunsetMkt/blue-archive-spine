@@ -12,7 +12,7 @@ option = {
     # will skip assets that already exists.
     "skipExistingAssets": True
 }
-ba_ps = "https://play.google.com/store/apps/details?id=com.nexon.bluearchive&hl=in&gl=US"
+ba_ps = "https://play.google.com/store/apps/details?id=com.nexon.bluearchive"
 ba_api = "https://api-pub.nexon.com/patch/v1.1/version-check"
 ba_api_data = {
     "market_game_id": "com.nexon.bluearchive",
@@ -30,12 +30,45 @@ def getVersion():
     '''
     Return Blue Archive build version and build number.
     '''
-    src = requests.get(ba_ps).text
-    # lmao python sucks
-    ver = eval(src.split("AF_initDataCallback({key: 'ds:4', hash: ")[1].split("'")[2].split("data:")[1].split(", sideChannel: {}")[0].replace("null", "None").replace("false", "False").replace("true", "True"))
-    ver = ver[1][2][140][0][0][0]
-    # ver = src.split('<div class="IQ1z0d"><span class="htlgb">')[4].split('</span></div></span></div><div class="hAyfc">')[0]
+    # There are two ways to get the version.
+    # 1. Get the version from BA API
+    # 2. Get the version from BA Play Store page
+    # We will try to get the version from BA API first.
+
+    # Get the version from BA API
+    try:
+        r = requests.post(ba_api, json=ba_api_data)
+        r.raise_for_status()
+        data = r.json()
+        build_version = data['latest_build_version']
+        ver = build_version
+        print(ver)
+        # build_number = data['latest_build_number']
+        # return (build_version, int(build_number))
+    except:
+        # Get the version from BA Play Store page
+        print("Failed to get version from BA API.")
+        src = requests.get(ba_ps).text
+        # lmao python sucks
+        try:
+            ver = eval(src.split("AF_initDataCallback({key: 'ds:5', hash: ")[1].split("'")[2].split("data:")[1].split(
+                ", sideChannel: {}")[0].replace("null", "None").replace("false", "False").replace("true", "True"))
+            ver = ver[1][2][140][0][0][0]
+            print(ver)
+            # ver = src.split('<div class="IQ1z0d"><span class="htlgb">')[4].split('</span></div></span></div><div class="hAyfc">')[0]
+        except:
+            # Get the version from BA Play Store page with regex
+            print('Fallback to regex')
+            # Fallback
+            import re
+            # Find all [["*.*.*"]]
+            ver = re.findall(r'\[\[\"+(\d+(.\d+)+(.\d+))+\"\]\]', src)
+            print(ver)
+            # Get the first one
+            ver = ver[0][0]
+
     return (ver, int(ver.split(".")[-1]))
+
 
 def updateBaData():
     global ba_api_data
