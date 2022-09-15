@@ -21,3 +21,12 @@
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(58, 120, 255);
 }
+
+#canvasWrapper {
+    box-sizing: border-box;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
