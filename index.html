@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
     <title>Blue Archive Resource Viewer</title>
-    <link rel="icon" type="image/x-icon"
-    href="favicon.ico"/>
-    <meta name="og:title" content="Blue Archive Spine Viewer"/>
-	<meta property="og:url" content="https://respectz.github.io/blue-archive-spine/" />
-	<meta name="keywords" content="bluearchive"/>
-	<meta name="description" content="Blue Archive Spine Viewer"/>
-    
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta name="og:title" content="Blue Archive Spine Viewer" />
+    <meta property="og:url" content="https://respectz.github.io/blue-archive-spine/" />
+    <meta name="keywords" content="bluearchive" />
+    <meta name="description" content="Blue Archive Spine Viewer" />
+
     <!-- Main CSS -->
     <link rel="stylesheet" href="css/style.css">
 
@@ -33,26 +33,28 @@
     <script src="js/utility.js"></script>
 
     <!-- Howler -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/howler@2.2.3/dist/howler.min.js"></script>
 </head>
+
 <body>
-    <nav class="uk-navbar-container" uk-navbar style="position: fixed;background: none;">
+    <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar style="position: fixed">
         <div class="uk-navbar-left">
-    
-            <ul class="uk-navbar-nav">
+            <ul class="uk-navbar-nav uk-dotnav-vertical">
                 <li class="uk-active">
-                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: #sidebar-options"><span uk-icon="cog"></span></button>
+                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: #sidebar-options"><span
+                            uk-icon="cog"></span></button>
+                </li>
+                <li class="uk-active">
+                    <button class="uk-button uk-button-default" type="button"
+                        onclick="document.fullscreen?document.exitFullscreen():document.documentElement.requestFullscreen()"><span uk-icon="expand"></span></button>
                 </li>
             </ul>
-    
         </div>
     </nav>
-    
+
 
     <div id="sidebar-options" uk-offcanvas>
         <div class="uk-offcanvas-bar">
-
             <button class="uk-offcanvas-close" type="button" uk-close></button>
             <h3>Blue Archive Spines</h3>
             <p>Select Model</p>
@@ -74,13 +76,21 @@
                                 <button class="uk-button uk-button-default" id="optionScaleHalf">1/2 Scale</button>
                             </div>
                             <div class="uk-width-1-4 uk-margin">
+                                <p>Size</p>
+                            </div>
+                            <div class="uk-width-3-4">
+                                <input class="uk-input" type="number" step="1" id="optionWidth">
+                                <input class="uk-input" type="number" step="1" id="optionHeight">
+                            </div>
+                            <div class="uk-width-1-4 uk-margin">
                                 <p>Scale</p>
                             </div>
                             <div class="uk-width-3-4">
                                 <input class="uk-input" type="number" min="0.01" step="0.01" id="optionScale">
                             </div>
                             <div class="uk-width-1-1">
-                                <p><label><input class="uk-checkbox" type="checkbox" id="optionAutoPos" checked> Auto Centerize</label></p>
+                                <p><label><input class="uk-checkbox" type="checkbox" id="optionAutoPos" checked> Auto
+                                        Centerize</label></p>
                             </div>
                             <div class="uk-width-1-1">
                                 <p>You can also move it by dragging.</p>
@@ -133,7 +143,9 @@
     </div>
 
     <!-- Main Canvas -->
-    <canvas id="screen"></canvas>
+    <div id="canvasWrapper">
+        <canvas id="screen"></canvas>
+    </div>
 
     <!-- load it -->
     <script>
@@ -144,6 +156,8 @@
             talkSound: document.getElementById("optionTalkSound"),
             scaleFit: document.getElementById("optionScaleFit"),
             scaleHalf: document.getElementById("optionScaleHalf"),
+            width: document.getElementById("optionWidth"),
+            height: document.getElementById("optionHeight"),
             scale: document.getElementById("optionScale"),
             autoPos: document.getElementById("optionAutoPos"),
             x: document.getElementById("optionX"),
@@ -152,123 +166,189 @@
             export: document.getElementById("optionExport"),
             exportType: document.getElementById("optionExportType")
         }
+        async function main() {
+            // Init models
+            let dataModels = await fetch("./data/models.json").then(r => r.json())
+            for (var i in dataModels) {
+                let opt = document.createElement("option");
+                opt.value = dataModels[i];
+                opt.innerHTML = i;
+                option.models.appendChild(opt);
+            }
 
-        // Init models
-        let dataModels = JSON.parse(httpGet("./data/models.json"))
-        for(var i in dataModels) {
-            let opt = document.createElement("option");
-            opt.value = dataModels[i];
-            opt.innerHTML = i;
-            option.models.appendChild(opt);
-        }
+            // Events
+            option.models.onchange = function () {
+                localStorage.setItem("blue-archive-res-model", this.value);
+                loadChar(this.value)
+            }
+            option.animations.onchange = function () {
+                playAnimation(this.value);
+            }
+            option.loop.onchange = function () {
+                localStorage.setItem("blue-archive-res-loop", this.checked);
+                playAnimation(option.animations.value);
+            }
+            option.height.onchange = option.width.onchange = function () {
+                updateCanvas(option.width.value, option.height.value)
+            }
+            option.talkSound.onchange = function () {
+                localStorage.setItem("blue-archive-res-talkSound", this.checked);
+            }
+            option.scaleFit.onclick = function () {
+                if (isCharacterLoaded)
+                    char.scale.x = char.scale.y = option.scale.value = option.models.value.indexOf("_home") != -1 ? Math.max(app.renderer.height / char.spineData.height, app.renderer.width / char.spineData.width) : Math.min(app.renderer.height / char.spineData.height, app.renderer.width / char.spineData.width);
+            }
+            option.scaleHalf.onclick = function () {
+                if (isCharacterLoaded)
+                    char.scale.x = char.scale.y = option.scale.value = 0.5;
+            }
+            option.scale.onchange = function () {
+                if (isCharacterLoaded)
+                    char.scale.x = char.scale.y = option.scale.value;
+            }
+            option.autoPos.onchange = function () {
+                if (!isCharacterLoaded)
+                    return;
+                if (this.checked) {
+                    option.x.disabled = option.y.disabled = true;
+                    option.x.value = char.x = window.innerWidth / 2;
+                    option.y.value = char.y = window.innerHeight / 1;
+                } else {
+                    option.x.disabled = option.y.disabled = false;
+                }
+            }
+            option.x.onchange = function (e) {
+                if (isCharacterLoaded)
+                    char.x = this.value;
+            }
+            option.y.onchange = function () {
+                if (isCharacterLoaded)
+                    char.y = this.value;
+            }
+            option.export.onclick = function () {
+                exportAnimation(FPS = parseInt(option.FPS.value))
+            }
 
-        // Events
-        option.models.onchange = function() {
-            localStorage.setItem("blue-archive-res-model", this.value);
-            loadChar(this.value)
-        }
-        option.animations.onchange = function() {
-            playAnimation(this.value);
-        }
-        option.loop.onchange = function() {
-            localStorage.setItem("blue-archive-res-loop", this.checked);
-            playAnimation(option.animations.value);
-        }
-        option.talkSound.onchange = function() {
-            localStorage.setItem("blue-archive-res-talkSound", this.checked);
-        }
-        option.scaleFit.onclick = function() {
-            if(isCharacterLoaded)
-                char.scale.x = char.scale.y = option.scale.value = option.models.value.indexOf("_home") != -1 ? Math.max(app.renderer.height/char.spineData.height, app.renderer.width/char.spineData.width) : Math.min(app.renderer.height/char.spineData.height, app.renderer.width/char.spineData.width);
-        }
-        option.scaleHalf.onclick = function() {
-            if(isCharacterLoaded)
-                char.scale.x = char.scale.y = option.scale.value = 0.5;
-        }
-        option.scale.onchange = function() {
-            if(isCharacterLoaded)
-                char.scale.x = char.scale.y = option.scale.value;
-        }
-        option.autoPos.onchange = function() {
-            if(!isCharacterLoaded)
-                return;
-            if(this.checked) {
-                option.x.disabled = option.y.disabled = true;
-                option.x.value = char.x = window.innerWidth/2;
-                option.y.value = char.y = window.innerHeight/1;
+            // On window resize
+            window.onresize = function () {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                //localStorage.setItem("blue-archive-res-width", width)
+                //localStorage.setItem("blue-archive-res-height", height)
+                option.width.value = canvasScreen.width = width;
+                option.height.value = canvasScreen.height = height;
+                if (option.autoPos) {
+                    option.x.value = char.x = window.innerWidth / 2;
+                    option.y.value = char.y = window.innerHeight / 1;
+                }
+            }
+
+            // Draggable Canvas
+            let canvasScreen = document.getElementById("screen")
+            let isDragging = false;
+            let nowMouseX, nowMouseY;
+            let lastMouseX, lastMouseY;
+            let canvasX, canvasY;
+
+            function updatePos() {
+                if (isDragging)
+                    window.requestAnimationFrame(updatePos)
+                if (!isCharacterLoaded)
+                    return;
+                if (!nowMouseX || !nowMouseY)
+                    return;
+                if ((nowMouseX == lastMouseX) && (nowMouseY == lastMouseY))
+                    return;
+                // console.log(nowMouseX, lastMouseX, nowMouseY, lastMouseY)
+                char.x = canvasX += parseInt(nowMouseX - lastMouseX)
+                char.y = canvasY += parseInt(nowMouseY - lastMouseY)
+                lastMouseX = nowMouseX
+                lastMouseY = nowMouseY
+            }
+
+            function handleMove(e) {
+                nowMouseX = e.clientX
+                nowMouseY = e.clientY
+            }
+
+            function handleTouch(e) {
+                handleMove(e.touches[0])
+            }
+
+            function handleMoveStart(e, type = "mousemove", func = handleMove) {
+                // console.log("start", e)
+                isDragging = true;
+                canvasX = char.x;
+                canvasY = char.y;
+                nowMouseX = lastMouseX = e.clientX
+                nowMouseY = lastMouseY = e.clientY
+                window.requestAnimationFrame(updatePos)
+                canvasScreen.addEventListener(type, func, { passive: true })
+            }
+
+            canvasScreen.onmousedown = handleMoveStart
+
+            canvasScreen.ontouchstart = function (e) {
+                handleMoveStart(e.touches[0], "touchmove", handleTouch)
+            }
+
+            function handleMoveEnd(e, type = "mousemove", func = handleMove) {
+                // console.log("end", e)
+                isDragging = false;
+                canvasScreen.removeEventListener(type, func)
+                option.x.value = canvasX
+                option.y.value = canvasY
+            }
+
+            canvasScreen.onmouseup = canvasScreen.onmouseout = handleMoveEnd
+
+            canvasScreen.ontouchend = function (e) {
+                handleMoveEnd(e.touches[0], "touchmove", handleTouch)
+            }
+
+            canvasScreen.onwheel = function (e) {
+                char.scale.x = char.scale.y = option.scale.value = (option.scale.value - e.deltaY / 10000)
+            }
+            //Load localStorage if exists
+            if (localStorage["blue-archive-res-model"]) {
+                option.models.value = localStorage["blue-archive-res-model"]
             } else {
-                option.x.disabled = option.y.disabled = false;
+                option.models.value = option.models.children[0].value;
             }
-        }
-        option.x.onchange = function(e) {
-            if(isCharacterLoaded)
-                char.x = this.value;
-        }
-        option.y.onchange = function() {
-            if(isCharacterLoaded)
-                char.y = this.value;
-        }
-        option.export.onclick = function() {
-            exportAnimation(FPS=parseInt(option.FPS.value))
-        }
-        // Draggable Canvas
-        let canvasScreen = document.getElementById("screen")
-        let isDragging = false;
-        let canMouseX, canMouseY;
-        let initMouseX, initMouseY;
-        let canvasX, canvasY;
-        canvasScreen.onmousedown = function(e) {
-            // canvasX = -canvasScreen.offsetLeft;
-            // canvasY = -canvasScreen.offsetTop;
-            canvasX = -char.x;
-            canvasY = -char.y;
-            initMouseX = parseInt(e.clientX-canvasX)
-            initMouseY = parseInt(e.clientY-canvasY)
+            if (localStorage["blue-archive-res-loop"])
+                option.loop.checked = localStorage["blue-archive-res-loop"]
+            if (localStorage["blue-archive-res-talkSound"])
+                option.talkSound.checked = localStorage["blue-archive-res-talkSound"]
 
-            isDragging = true;
-        }
-        canvasScreen.onmouseup = function(e) {
-            isDragging = false;
-        }
-        canvasScreen.onmouseout = function(e) {
-            isDragging = false;
-        }
-        canvasScreen.onmousemove = function(e) {
-            canMouseX = parseInt(e.clientX-canvasX)
-            canMouseY = parseInt(e.clientY-canvasY)
-            if(isDragging && (initMouseX - canMouseX != 0 || initMouseY - canMouseY != 0) && isCharacterLoaded) {
-                option.autoPos.checked = false;
-                // console.log(initMouseX - canMouseX, initMouseY - canMouseY)
-                char.x = option.x.value = -(canvasX + initMouseX - canMouseX); 
-                char.y = option.y.value = -(canvasY + initMouseY - canMouseY);
-                // canvasScreen.style.left = -(canvasX + initMouseX - canMouseX) + "px";
-                // canvasScreen.style.top = -(canvasY + initMouseY - canMouseY) + "px";
-            }
-        }
-        // Resize event
-        window.addEventListener('resize', function(event){
-            canvasScreen.width = window.innerWidth;
-            canvasScreen.height = window.innerHeight;
-            if(option.autoPos.checked && isCharacterLoaded) {
-                char.x = option.x.value = window.innerWidth/2;
-                char.y = option.y.value = window.innerHeight/1;
-            }
-        });
-        //Load localStorage if exists
-        if(localStorage["blue-archive-res-model"]) {
-            option.models.value = localStorage["blue-archive-res-model"]
-        } else {
-            option.models.value = option.models.children[0].value;
-        }
-        if(localStorage["blue-archive-res-loop"])
-            option.loop.checked = localStorage["blue-archive-res-loop"]
-        if(localStorage["blue-archive-res-talkSound"])
-            option.talkSound.checked = localStorage["blue-archive-res-talkSound"]
+            // Start
+            async function updateCanvas(width, height) {
+                width = width ? width : window.innerWidth;
+                height = height ? height : window.innerHeight;
+                //localStorage.setItem("blue-archive-res-width", width)
+                //localStorage.setItem("blue-archive-res-height", height)
+                option.width.value = canvasScreen.width = width;
+                option.height.value = canvasScreen.height = height;
 
-        // Start
-        reCanvas();
-        loadChar(option.models.value);
-        
+
+                if (option.autoPos.checked && isCharacterLoaded) {
+                    char.x = option.x.value = width / 2;
+                    char.y = option.y.value = height / 1;
+                }
+                if (!app) {
+                    audios = await fetch("./data/audio.json").then(r => r.json())
+                    app = new PIXI.Application(
+                        {
+                            width: width,
+                            height: height,
+                            view: document.getElementById("screen")
+                        }
+                    );
+                }
+            }
+            await updateCanvas(localStorage.getItem("blue-archive-res-width"), localStorage.getItem("blue-archive-res-height"))
+            loadChar(option.models.value);
+        }
+        main()
     </script>
     <!-- Exporter -->
     <script src="js/canvas-exporter.js"></script>
@@ -291,4 +371,5 @@
         </div>
     </div>
 </body>
+
 </html>

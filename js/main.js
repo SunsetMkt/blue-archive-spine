@@ -5,41 +5,36 @@ let audios;
 let isCharacterLoaded = false;
 let debug = 0; //set via console
 
-function reCanvas() {
-    audios = JSON.parse(httpGet("./data/audio.json"));
-    app = new PIXI.Application(
-        {
-            width: window.innerWidth,
-            height: window.innerHeight,
-            view: document.getElementById("screen")
-        }
-    );
-}
 
-function loadChar(model="./assets/spine/shiroko_home/Shiroko_home.skel") {
+function loadChar(model = "./assets/spine/shiroko_home/Shiroko_home.skel") {
     isCharacterLoaded = false;
     // remove previous spine
-    if(app.stage.children.length > 0) {
+    if (app.stage.children.length > 0) {
         app.stage.children.pop();
         app.loader.resources = {};
     }
     // remove previous audio
-    if(audioList.length != 0) {
-        for(var i in audioList) {
+    if (audioList.length != 0) {
+        for (var i in audioList) {
             audioList[i].stop();
         }
         audioList = [];
     }
-
-    // load new spine
-    app.loader
-        .add('char', `./${model}`)
-        .load(onAssetsLoaded);
+    try {
+        app.loader.resources = {};
+        // load new spine
+        app.loader
+            .add('char', `./${model}`)
+            .load(onAssetsLoaded);
+    } catch (e) {
+        console.error(e)
+    }
 }
 
-function onAssetsLoaded(loader,res) {
-    if(audioList.length != 0) {
-        for(var i in audioList) {
+
+function onAssetsLoaded(loader, res) {
+    if (audioList.length != 0) {
+        for (var i in audioList) {
             audioList[i].stop();
         }
         audioList = [];
@@ -56,8 +51,8 @@ function onAssetsLoaded(loader,res) {
     char.scale.y = 0.5;
 
     // Centerize
-    char.x = window.innerWidth/2;
-    char.y = window.innerHeight/1;
+    char.x = window.innerWidth / 2;
+    char.y = window.innerHeight / 1;
 
     //Set option value
     option.scale.value = 0.5;
@@ -68,56 +63,56 @@ function onAssetsLoaded(loader,res) {
     const animations = res.char.spineData.animations;
     let check = 0;
     option.animations.innerHTML = "";
-    for(var i in animations) {
+    for (var i in animations) {
         let a = document.createElement("option");
         a.value = a.innerHTML = animations[i].name;
         option.animations.append(a)
-        if(animations[i].name == "Start_Idle_01")
+        if (animations[i].name == "Idle_01")
             check = 1;
     }
 
     //Play Animation
-    if(check) {
-        char.state.setAnimation(0, "Start_Idle_01", option.loop.checked);
-        optionAnimations.value = "Start_Idle_01";
+    if (check) {
+        char.state.setAnimation(0, "Idle_01", option.loop.checked);
+        optionAnimations.value = "Idle_01";
     } else {
         char.state.setAnimation(0, animations[0].name, option.loop.checked);
     }
     // Voiceline Listener / Handler
     char.state.addListener({
-        event: function(entry, event) {
-            if(debug)
+        event: function (entry, event) {
+            if (debug)
                 console.log(event)
-            if(event.stringValue == '')
+            if (event.stringValue == '')
                 return;
-            if(!option.talkSound.checked)
+            if (!option.talkSound.checked)
                 return;
             let charName = option.models.options[option.models.selectedIndex].text.replace("_home", "")
             //Camalize
-            if(charName.indexOf("_") != -1) {
+            if (charName.indexOf("_") != -1) {
                 charName = charName.toLowerCase().replace(/([-_][a-z])/g, group =>
-                group
-                .toUpperCase()
-                .replace('-', '')
-                .replace('_', '')
+                    group
+                        .toUpperCase()
+                        .replace('-', '')
+                        .replace('_', '')
                 );
             }
             charName = charName.charAt(0).toUpperCase() + charName.slice(1);
-            if(debug)
+            if (debug)
                 console.log(charName)
             //Play
-            if(charName == 'MashiroSwimsuit')
+            if (charName == 'MashiroSwimsuit')
                 charName = 'CH0061';
-            if(charName == 'ShirokoRidingsuit')
+            if (charName == 'ShirokoRidingsuit')
                 charName = 'ShirokoRidingSuit'
             let voice = new Howl({
                 src: [audios[event.stringValue]]
             });
             // If already loaded, play it
-            if(voice.state() == 'loaded')
+            if (voice.state() == 'loaded')
                 voice.play();
-            else if(voice.state() == 'loading') {
-                voice.on('load', function() {
+            else if (voice.state() == 'loading') {
+                voice.on('load', function () {
                     voice.play();
                 })
             }
@@ -130,8 +125,8 @@ function onAssetsLoaded(loader,res) {
 }
 
 function playAnimation(name) {
-    if(audioList.length != 0) {
-        for(var i in audioList) {
+    if (audioList.length != 0) {
+        for (var i in audioList) {
             audioList[i].stop();
         }
         audioList = [];
