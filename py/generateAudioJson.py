@@ -21,7 +21,7 @@ if __name__ == "__main__":
     baseUrl = '/'.join(resUrl.split("/")[0:-1])
     res = requests.get(resUrl).json()["resources"]
     for asset in res:
-        if "Audio/VOC_JP/" in asset["resource_path"]:
+        if "Audio/VOC_JP/" in asset["resource_path"] and "MemorialLobby" in asset["resource_path"]:
             keyEvent = ''.join(asset["resource_path"].split("/")[-1].split(".")[:-1])
             fname = ''.join(asset["resource_path"].split("/")[-1])
             
