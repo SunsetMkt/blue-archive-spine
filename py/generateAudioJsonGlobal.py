@@ -2,7 +2,7 @@ import os
 import json
 import requests
 
-from getModels import getResourceURL, downloadFile
+from getModelsGlobal import getResourceURL, downloadFile
 
 data = {}
 
