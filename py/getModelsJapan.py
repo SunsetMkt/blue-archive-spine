@@ -24,6 +24,7 @@ def getBaseResourceURL():
     Return resource url for Blue Archive
     '''
     data = requests.get(ba_api).json()
+    print(data)
     return data["ConnectionGroups"][0]['OverrideConnectionGroups'][-1]['AddressablesCatalogUrlRoot']
     # https://prod-clientpatch.bluearchiveyostar.com/r47_1_22_46zlzvd7mur326newgu8_2 + /Android/bundleDownloadInfo.json
 
@@ -98,6 +99,7 @@ if __name__ == "__main__":
 
 
     ver = getBaseResourceURL() # There are several ResourceURL to a version
+    print(ver)
     if(os.path.isfile("./data/version.txt")):
         with open("./data/version.txt", "r") as f:
             ver_temp = f.read()

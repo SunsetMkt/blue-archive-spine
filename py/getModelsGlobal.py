@@ -90,6 +90,7 @@ def getResourceURL():
     Return resource url for Blue Archive
     '''
     data = requests.post(ba_api, json=ba_api_data).json()
+    print(data)
     return data["patch"]["resource_path"]
 
 def getModelsList():
@@ -162,6 +163,7 @@ if __name__ == "__main__":
 
 
     ver = getResourceURL() # There are several ResourceURL to a version
+    print(ver)
     if(os.path.isfile("./data/version.txt")):
         with open("./data/version.txt", "r") as f:
             ver_temp = f.read()
