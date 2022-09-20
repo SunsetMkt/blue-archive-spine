@@ -161,7 +161,7 @@ if __name__ == "__main__":
         os.makedirs("./data")
 
 
-    ver = getVersion()
+    ver = getResourceURL() # There are several ResourceURL to a version
     if(os.path.isfile("./data/version.txt")):
         with open("./data/version.txt", "r") as f:
             ver_temp = f.read()
