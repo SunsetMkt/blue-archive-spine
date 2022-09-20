@@ -1,8 +1,9 @@
-import os
 import json
+import os
+
 import requests
 
-from getModelsJapan import getBaseResourceURL, downloadFile
+from getModelsJapan import downloadFile, getBaseResourceURL
 
 data = {}
 
@@ -23,9 +24,10 @@ if __name__ == "__main__":
     res = requests.get(resUrl).json()["Table"]
     for asset in res:
         if "Audio/VOC_JP/" in res[asset]["path"] and "MemorialLobby" in res[asset]["path"]:
-            keyEvent = ''.join(res[asset]["path"].split("/")[-1].split(".")[:-1])
+            keyEvent = ''.join(
+                res[asset]["path"].split("/")[-1].split(".")[:-1])
             fname = ''.join(res[asset]["path"].split("/")[-1])
-            
+
             # download ver
             if _type:
                 path = f"./assets/audio/{fname}"
@@ -40,9 +42,9 @@ if __name__ == "__main__":
                 downloadFile(baseUrl + "/" + res[asset]["path"], path)
                 data[keyEvent] = path
             else:
-            # online ver (cors ?)
+                # online ver (cors ?)
                 data[keyEvent] = baseUrl + "/" + res[asset]["path"]
-    
+
     with open("./data/audio.json", "w") as f:
         json.dump(data, f, indent=4)
     print("="*30)

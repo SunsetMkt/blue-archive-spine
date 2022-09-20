@@ -1,5 +1,5 @@
-import os
 import json
+import os
 
 parentDir = os.listdir("assets/spine/")
 

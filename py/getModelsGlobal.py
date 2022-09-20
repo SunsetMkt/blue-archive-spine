@@ -1,9 +1,9 @@
-from io import BytesIO
-import unitypack
-import requests
-from PIL import ImageOps
 import os
-import json
+from io import BytesIO
+
+import requests
+import unitypack
+from PIL import ImageOps
 
 # conf
 option = {
@@ -25,6 +25,7 @@ ba_api_data = {
     "curr_build_number": 120365,
     "curr_patch_version": 0
 }
+
 
 def getVersion():
     '''
@@ -61,6 +62,7 @@ def getVersion():
             print('Fallback to regex')
             # Fallback
             import re
+
             # Find all [["*.*.*"]]
             ver = re.findall(r'\[\[\"+(\d+(.\d+)+(.\d+))+\"\]\]', src)
             print(ver)
@@ -85,6 +87,7 @@ def updateBaData():
         "curr_patch_version": 0
     }
 
+
 def getResourceURL():
     '''
     Return resource url for Blue Archive
@@ -92,6 +95,7 @@ def getResourceURL():
     data = requests.post(ba_api, json=ba_api_data).json()
     print(data)
     return data["patch"]["resource_path"]
+
 
 def getModelsList():
     '''
@@ -103,13 +107,16 @@ def getModelsList():
     for asset in res["resources"]:
         if "spinecharacters-" in asset["resource_path"] or "spinelobbies-" in asset["resource_path"]:
             # append url and path
-            data.append('/'.join(res_url.split("/")[0:-1]) + "/" + asset["resource_path"])
+            data.append('/'.join(res_url.split("/")
+                        [0:-1]) + "/" + asset["resource_path"])
     return data
+
 
 def downloadFile(url, fname):
     src = requests.get(url).content
     with open(fname, 'wb') as f:
         f.write(src)
+
 
 def extractTextAsset(object, dest):
     data = object.read()
@@ -122,6 +129,7 @@ def extractTextAsset(object, dest):
     else:
         raise Exception("Not handled")
 
+
 def extractTexture2D(object, dest):
     data = object.read()
     img = ImageOps.flip(data.image)
@@ -129,6 +137,7 @@ def extractTexture2D(object, dest):
     img.save(output, format="png")
     with open(f"{dest}/{data.name}.png", "wb") as f:
         f.write(output.getvalue())
+
 
 def extractCharacter(src, dest):
     with open(src, "rb") as f:
@@ -150,6 +159,7 @@ def extractCharacter(src, dest):
                     print(data.name + ".png")
                     extractTexture2D(object, dest)
 
+
 if __name__ == "__main__":
     # make folder
     if not(os.path.isdir("./downloaded_resource")):
@@ -161,8 +171,7 @@ if __name__ == "__main__":
     if not(os.path.isdir("./data")):
         os.makedirs("./data")
 
-
-    ver = getResourceURL() # There are several ResourceURL to a version
+    ver = getResourceURL()  # There are several ResourceURL to a version
     print(ver)
     if(os.path.isfile("./data/version.txt")):
         with open("./data/version.txt", "r") as f:
@@ -178,13 +187,12 @@ if __name__ == "__main__":
         with open("./data/version.txt", "w") as f:
             f.write(ver[0])
 
-
     # important
     updateBaData()
 
     # get model list
     model_list = getModelsList()
-    
+
     # download list of model list
     for index, model in enumerate(model_list):
         print("="*30)
@@ -200,7 +208,8 @@ if __name__ == "__main__":
             continue
 
         # spinecharacters and spinelobbies only
-        character_name = ''.join(fname.split("spinecharacters-")[1].split("-")[0] if "spinecharacters" in fname else fname.split("spinelobbies-")[1].split("-")[0])
+        character_name = ''.join(fname.split("spinecharacters-")[1].split("-")[
+                                 0] if "spinecharacters" in fname else fname.split("spinelobbies-")[1].split("-")[0])
         destExtract = f"./assets/spine/{character_name}"
 
         # skip if already exists

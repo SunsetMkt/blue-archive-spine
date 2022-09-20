@@ -1,8 +1,9 @@
-import os
 import json
+import os
+
 import requests
 
-from getModelsGlobal import getResourceURL, downloadFile
+from getModelsGlobal import downloadFile, getResourceURL
 
 data = {}
 
@@ -22,9 +23,10 @@ if __name__ == "__main__":
     res = requests.get(resUrl).json()["resources"]
     for asset in res:
         if "Audio/VOC_JP/" in asset["resource_path"] and "MemorialLobby" in asset["resource_path"]:
-            keyEvent = ''.join(asset["resource_path"].split("/")[-1].split(".")[:-1])
+            keyEvent = ''.join(
+                asset["resource_path"].split("/")[-1].split(".")[:-1])
             fname = ''.join(asset["resource_path"].split("/")[-1])
-            
+
             # download ver
             if _type:
                 path = f"./assets/audio/{fname}"
@@ -39,9 +41,9 @@ if __name__ == "__main__":
                 downloadFile(baseUrl + "/" + asset["resource_path"], path)
                 data[keyEvent] = path
             else:
-            # online ver (cors ?)
+                # online ver (cors ?)
                 data[keyEvent] = baseUrl + "/" + asset["resource_path"]
-    
+
     with open("./data/audio.json", "w") as f:
         json.dump(data, f, indent=4)
     print("="*30)
