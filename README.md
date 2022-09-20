@@ -1,4 +1,12 @@
 # blue-archive-spine
+Based on [respectZ/blue-archive-spine](https://github.com/respectZ/blue-archive-spine)
+
+# Quick Start
+* Use this template
+* Create `jp` and `global` branch from `resourceless`
+* Enable GitHub Actions
+
+# Informations
 For viewing Blue Archive Spines.
 
 Have a look at [this branch](https://github.com/respectZ/blue-archive-spine/tree/resourceless) for resourceless.
