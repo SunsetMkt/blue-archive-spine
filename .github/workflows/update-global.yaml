@@ -13,7 +13,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
         with:
-          ref: 'global'
+          ref: 'global' # Get the right branch
+          fetch-depth: '0' # Get all branch first
       - name: Installing requirements
         run: |
           pip install -r requirements.txt 
