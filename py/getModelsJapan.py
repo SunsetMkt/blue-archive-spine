@@ -112,7 +112,7 @@ if __name__ == "__main__":
             ver_temp = f.read()
         if str(ver) == str(ver_temp):
             print(f"[{ver}] No new update. Stopping.")
-            exit()
+            exit(1)
         else:
             print(f"Update {ver_temp} to {ver}")
             with open("./data/version.txt", "w") as f:
