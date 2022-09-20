@@ -23,13 +23,13 @@ jobs:
           python setup.py install --user
       - name: Retrieving models
         run: |
-          python ./py/getModels.py
+          python ./py/getModelsJapan.py
       - name: Generating models.json
         run: |
           python ./py/generateModelsJson.py
       - name: Generating audio.json
         run: |
-          python ./py/generateAudioJson.py
+          python ./py/generateAudioJsonJapan.py
       - name: Commit files
         run: |
           git config --local user.email "ucihaibna@yahoo.com"
@@ -41,3 +41,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           force: true
+          branch: jp
