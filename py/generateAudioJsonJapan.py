@@ -45,6 +45,7 @@ if __name__ == "__main__":
                 # online ver (cors ?)
                 data[keyEvent] = baseUrl + "/" + res[asset]["path"]
 
+    print(data)
     with open("./data/audio.json", "w") as f:
         json.dump(data, f, indent=4)
     print("="*30)
