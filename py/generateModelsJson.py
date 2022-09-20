@@ -18,7 +18,11 @@ for i in parentDir:
                 # skel name should be the same as the folder name
                 continue
             data[j[:-5]] = f"assets/spine/{i}/{j}"
+    elif len(file) == 0:
+        # No skel file in the folder
+        continue
     else:
+        # Only one skel file in the folder
         if i[0] == "_":
             continue
         data[i] = f"assets/spine/{i}/" + ''.join(file)
