@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+        with:
+          ref: 'jp'
       - name: Installing requirements
         run: |
           pip install -r requirements.txt 
