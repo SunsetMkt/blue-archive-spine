@@ -176,16 +176,16 @@ if __name__ == "__main__":
     if(os.path.isfile("./data/version.txt")):
         with open("./data/version.txt", "r") as f:
             ver_temp = f.read()
-        if str(ver[0]) == str(ver_temp):
-            print(f"[{ver[0]}] No new update. Stopping.")
+        if str(ver) == str(ver_temp):
+            print(f"[{ver}] No new update. Stopping.")
             exit()
         else:
-            print(f"Update {ver_temp} to {ver[0]}")
+            print(f"Update {ver_temp} to {ver}")
             with open("./data/version.txt", "w") as f:
-                f.write(ver[0])
+                f.write(ver)
     else:
         with open("./data/version.txt", "w") as f:
-            f.write(ver[0])
+            f.write(ver)
 
     # important
     updateBaData()
