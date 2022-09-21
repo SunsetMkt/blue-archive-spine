@@ -171,6 +171,9 @@ if __name__ == "__main__":
     if not(os.path.isdir("./data")):
         os.makedirs("./data")
 
+    # important
+    updateBaData()
+
     ver = getResourceURL()  # There are several ResourceURL to a version
     print(ver)
     if(os.path.isfile("./data/version.txt")):
@@ -186,9 +189,6 @@ if __name__ == "__main__":
     else:
         with open("./data/version.txt", "w") as f:
             f.write(ver)
-
-    # important
-    updateBaData()
 
     # get model list
     model_list = getModelsList()

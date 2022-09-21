@@ -105,7 +105,8 @@ if __name__ == "__main__":
     if not(os.path.isdir("./data")):
         os.makedirs("./data")
 
-    ver = getBaseResourceURL()  # There are several ResourceURL to a version
+    # There are several ResourceURL to a version
+    ver = getBaseResourceURL() + "/Android/bundleDownloadInfo.json"
     print(ver)
     if(os.path.isfile("./data/version.txt")):
         with open("./data/version.txt", "r") as f:
