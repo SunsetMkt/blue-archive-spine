@@ -40,7 +40,7 @@ def getModelsList():
     res_url = base_url + '/Android/bundleDownloadInfo.json'
     res = requests.get(res_url).json()
     for asset in res["BundleFiles"]:
-        if "spinecharacters-" in asset["resource_path"] or "spinelobbies-" in asset["resource_path"] or "spinebackground-" in asset["resource_path"]:
+        if "spinecharacters-" in asset["Name"] or "spinelobbies-" in asset["Name"] or "spinebackground-" in asset["Name"]:
             # append url and path
             data.append(base_url + '/Android/' + asset["Name"])
     return data
