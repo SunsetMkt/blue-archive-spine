@@ -23,7 +23,7 @@ if __name__ == "__main__":
     # https://prod-clientpatch.bluearchiveyostar.com/r47_1_22_46zlzvd7mur326newgu8_2 + /MediaResources/MediaCatalog.json
     res = requests.get(resUrl).json()["Table"]
     for asset in res:
-        if "Audio/VOC_JP/" in res[asset]["path"] and "MemorialLobby" in res[asset]["path"]:
+        if "Audio/VOC_JP/" in asset["resource_path"] and ("MemorialLobby" in asset["resource_path"] or "Work" in asset["resource_path"]):
             keyEvent = ''.join(
                 res[asset]["path"].split("/")[-1].split(".")[:-1])
             fname = ''.join(res[asset]["path"].split("/")[-1])

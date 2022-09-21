@@ -40,7 +40,7 @@ def getModelsList():
     res_url = base_url + '/Android/bundleDownloadInfo.json'
     res = requests.get(res_url).json()
     for asset in res["BundleFiles"]:
-        if "spinecharacters-" in asset["Name"] or "spinelobbies-" in asset["Name"]:
+        if "spinecharacters-" in asset["resource_path"] or "spinelobbies-" in asset["resource_path"] or "spinebackground-" in asset["resource_path"]:
             # append url and path
             data.append(base_url + '/Android/' + asset["Name"])
     return data
@@ -125,9 +125,9 @@ if __name__ == "__main__":
     model_list = getModelsList()
 
     # download list of model list
-    for index, model in enumerate(model_list):
+    for index, model in enumerate(model_list, start=1):
         print("="*30)
-        print(f"{index}/{len(model_list) + 1}")
+        print(f"{index}/{len(model_list)}")
         fname = model.split("/")[-1]
         destDownload = f"./downloaded_resource/{fname}"
 
@@ -138,9 +138,9 @@ if __name__ == "__main__":
             print("Already downloaded. Skipping.")
             continue
 
-        # spinecharacters and spinelobbies only
-        character_name = ''.join(fname.split("spinecharacters-")[1].split("-")[
-                                 0] if "spinecharacters" in fname else fname.split("spinelobbies-")[1].split("-")[0])
+        # spinebackground, spinecharacters and spinelobbies only
+        character_name = ''.join(fname.split("spinecharacters-")[1].split("-")[0] if "spinecharacters" in fname else fname.split(
+            "spinelobbies-")[1].split("-")[0] if "spinelobbies" in fname else fname.split("spinebackground-")[1].split("-")[0])
         destExtract = f"./assets/spine/{character_name}"
 
         # skip if already exists
