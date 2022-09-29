@@ -1,11 +1,13 @@
 # blue-archive-spine
 Based on [respectZ/blue-archive-spine](https://github.com/respectZ/blue-archive-spine)
 
-# Quick Start
+## Quick Start
 * Use this template
 * Create `jp` and `global` branch from `resourceless`
-* Enable GitHub Actions
-* `Update-JP` Needs to be triggered manually since there isn't a solution to get the latest update json link automatically. `ba_api` in `getModelsJapan.py` needs to be updated manually.
+* Enable GitHub Actions, manually trigger `Update-Global` and `Update-JP` at any branch (they will find the right branch, no matter where you trigger them) to get the first update
+* `Update-Global` will run daily and fails when no update is available, `Update-JP` won't run automatically
+
+`Update-JP` Needs to be triggered manually since there isn't a solution to get the latest update json link automatically. `ba_api` in `getModelsJapan.py` needs to be updated manually (through reverse engineering or network capture) when there is a new update.
 
 ## About Japan version
 The update json link seems to be hard coded into the game code.
@@ -15,6 +17,23 @@ We can get `LatestClientVersion` from `https://prod-noticeindex.bluearchiveyosta
 It seems that BA Japan (Yostar) does not have a certain resource path API. And their developers hard code the resource link for a version into the game code. The game only checks for `LatestClientVersion` to see if it's outdated and asks the user to update the game from Google Play to get the latest resource link.
 
 Does this mean the user has to update the game from Google Play every month to get the latest monthly in-game activity? -- Yes, this is what's happening. (BA Japan releases an update at Google Play about every month, while BA Global updates about every three months)
+
+## About this repo
+This repo is a fork of [respectZ/blue-archive-spine](https://github.com/respectZ/blue-archive-spine). Some contributors and I modified the code to make it work better.
+
+`blue-archive-spine` is a tool to download and view the character arts and animations (Memorial Lobby) of the game [Blue Archive](https://bluearchive.nexon.com/home).
+
+It's recommneded to use GitHub Actions to download the resources automatically. If you want to download the resources manually, please refer to the original README.
+
+The following is the original README.
+
+## License
+This repo is based on the work of @respectZ and @LXY1226 . The original repo doesn't have a license, so I'm not sure if it can be used for any purpose.
+
+## Disclaimer
+Blue Archive is a registered trademark of NAT GAMES Co., Ltd. This repo is not affiliated with NEXON Korea Corp. & NEXON GAMES Co., Ltd.
+
+-----
 
 # Informations
 For viewing Blue Archive Spines.
