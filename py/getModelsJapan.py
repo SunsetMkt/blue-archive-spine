@@ -15,10 +15,15 @@ option = {
 
 ba_api = "https://yostar-serverinfo.bluearchiveyostar.com/r48_2q1alt6gvk5igdsj4hl2.json"
 
+ba_api2 = "https://prod-noticeindex.bluearchiveyostar.com/prod/index.json"
 
 def getVersion():
-    data = requests.get(ba_api).json()
-    return data["ConnectionGroups"][0]['OverrideConnectionGroups'][-1]['Name']
+    '''
+    Return latest version of Blue Archive Japan
+    Unused for now
+    '''
+    data = requests.get(ba_api2).json()
+    return data["LatestClientVersion"]
 
 
 def getBaseResourceURL():
