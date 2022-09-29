@@ -13,7 +13,7 @@ option = {
     "skipExistingAssets": True
 }
 
-ba_api = "https://yostar-serverinfo.bluearchiveyostar.com/r47_50ywch97hfg06o8rom7w.json"
+ba_api = "https://yostar-serverinfo.bluearchiveyostar.com/r48_2q1alt6gvk5igdsj4hl2.json"
 
 
 def getVersion():
