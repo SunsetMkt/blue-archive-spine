@@ -8,7 +8,13 @@ Based on [respectZ/blue-archive-spine](https://github.com/respectZ/blue-archive-
 * `Update-JP` Needs to be triggered manually since there isn't a solution to get the latest update json link automatically. `ba_api` in `getModelsJapan.py` needs to be updated manually.
 
 ## About Japan version
-The update json link seems to be hard coded into the game binary.
+The update json link seems to be hard coded into the game code.
+
+We can get `LatestClientVersion` from `https://prod-noticeindex.bluearchiveyostar.com/prod/index.json`, but how the random hash path (likes `r48_2q1alt6gvk5igdsj4hl2.json`) under `yostar-serverinfo.bluearchiveyostar.com` is generated?
+
+It seems that BA Japan (Yostar) does not have a certain resource path API. And their developers hard code the resource link for a version into the game code. The game only checks for `LatestClientVersion` to see if it's outdated and asks the user to update the game from Google Play to get the latest resource link.
+
+Does this mean the user has to update the game from Google Play every month to get the latest monthly in-game activity? -- Yes, this is what's happening. (BA Japan releases an update at Google Play about every month, while BA Global updates about every three months)
 
 # Informations
 For viewing Blue Archive Spines.
