@@ -5,6 +5,10 @@ Based on [respectZ/blue-archive-spine](https://github.com/respectZ/blue-archive-
 * Use this template
 * Create `jp` and `global` branch from `resourceless`
 * Enable GitHub Actions
+* `Update-JP` Needs to be triggered manually since there isn't a solution to get the latest update json link automatically. `ba_api` in `getModelsJapan.py` needs to be updated manually.
+
+## About Japan version
+The update json link seems to be hard coded into the game binary.
 
 # Informations
 For viewing Blue Archive Spines.
