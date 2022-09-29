@@ -25,13 +25,13 @@ This repo is a fork of [respectZ/blue-archive-spine](https://github.com/respectZ
 
 It's recommneded to use GitHub Actions to download the resources automatically. If you want to download the resources manually, please refer to the original README.
 
-The following is the original README.
-
 ## License
 This repo is based on the work of @respectZ and @LXY1226 . The original repo doesn't have a license, so I'm not sure if it can be used for any purpose.
 
 ## Disclaimer
 Blue Archive is a registered trademark of NAT GAMES Co., Ltd. This repo is not affiliated with NEXON Korea Corp. & NEXON GAMES Co., Ltd.
+
+## The following is the original README.
 
 -----
 
