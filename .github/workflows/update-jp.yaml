@@ -3,10 +3,7 @@ name: Update-JP
 on:
   workflow_dispatch:
 
-permissions:
-  pull-requests: write
-  issues: write
-  repository-projects: write
+permissions: write-all
 
 jobs:
   update:
