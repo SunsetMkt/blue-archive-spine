@@ -231,4 +231,9 @@ if __name__ == "__main__":
 
         downloadFile(model, destDownload)
         # extract
-        extractCharacter(destDownload, destExtract)
+        try:
+            extractCharacter(destDownload, destExtract)
+        except:
+            print("Error occured. Skipping.")
+            import traceback
+            traceback.print_exc()
