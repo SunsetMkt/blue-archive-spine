@@ -3,6 +3,11 @@ name: Update-JP
 on:
   workflow_dispatch:
 
+permissions:
+  pull-requests: write
+  issues: write
+  repository-projects: write
+
 jobs:
   update:
     runs-on: ubuntu-latest
