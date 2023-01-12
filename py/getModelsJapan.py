@@ -17,6 +17,7 @@ ba_api = "https://yostar-serverinfo.bluearchiveyostar.com/r51_my70ojfz73udm2aylr
 
 ba_api2 = "https://prod-noticeindex.bluearchiveyostar.com/prod/index.json"
 
+
 def getVersion():
     '''
     Return latest version of Blue Archive Japan
@@ -59,10 +60,10 @@ def downloadFile(url, fname):
 
 def extractTextAsset(object, dest):
     data = object.read()
-    if(type(data.script) == bytes):
+    if (type(data.script) == bytes):
         with open(f"{dest}/{data.name}", "wb") as f:
             f.write(data.script)
-    elif(type(data.script) == str):
+    elif (type(data.script) == str):
         with open(f"{dest}/{data.name}", "wb") as f:
             f.write(bytes(str(data.script), 'utf-8'))
     else:
@@ -101,19 +102,19 @@ def extractCharacter(src, dest):
 
 if __name__ == "__main__":
     # make folder
-    if not(os.path.isdir("./downloaded_resource")):
+    if not (os.path.isdir("./downloaded_resource")):
         os.makedirs("./downloaded_resource")
-    if not(os.path.isdir("./assets")):
+    if not (os.path.isdir("./assets")):
         os.makedirs("./assets")
-    if not(os.path.isdir("./assets/spine")):
+    if not (os.path.isdir("./assets/spine")):
         os.makedirs("./assets/spine")
-    if not(os.path.isdir("./data")):
+    if not (os.path.isdir("./data")):
         os.makedirs("./data")
 
     # There are several ResourceURL to a version
     ver = getBaseResourceURL() + "/Android/bundleDownloadInfo.json"
     print(ver)
-    if(os.path.isfile("./data/version.txt")):
+    if (os.path.isfile("./data/version.txt")):
         with open("./data/version.txt", "r") as f:
             ver_temp = f.read()
         if str(ver) == str(ver_temp):
@@ -154,9 +155,14 @@ if __name__ == "__main__":
             print("Already extracted. Skipping.")
             continue
 
-        if not(os.path.isdir(destExtract)):
+        if not (os.path.isdir(destExtract)):
             os.makedirs(destExtract)
 
         downloadFile(model, destDownload)
         # extract
-        extractCharacter(destDownload, destExtract)
+        try:
+            extractCharacter(destDownload, destExtract)
+        except:
+            print("Error occured. Skipping.")
+            import traceback
+            traceback.print_exc()
