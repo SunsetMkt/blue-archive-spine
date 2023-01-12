@@ -33,6 +33,10 @@ Blue Archive is a registered trademark of NAT GAMES Co., Ltd. This repo is not a
 
 ## The following is the original README.
 
+*Please notice: some of the following information is outdated. Please refer to the Quick Start section above.*
+
+This repo uses UnityPy (instead of unitypack in upstream) to extract files.
+
 -----
 
 # Informations
