@@ -15,12 +15,6 @@ jobs:
       - name: Installing requirements
         run: |
           pip install -r requirements.txt 
-      - name: Building UnityPack
-        run: |
-          python setup.py build
-      - name: Installing UnityPack
-        run: |
-          python setup.py install --user
       - name: Retrieving models
         run: |
           python ./py/getModelsJapan.py
