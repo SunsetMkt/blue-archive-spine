@@ -14,7 +14,7 @@ option = {
     "skipExisting": True
 }
 
-if not(os.path.isdir("./data")):
+if not (os.path.isdir("./data")):
     os.mkdir("./data")
 
 if __name__ == "__main__":
@@ -36,7 +36,7 @@ if __name__ == "__main__":
                     print("Already downloaded. Skipping.")
                     data[keyEvent] = path
                     continue
-                if not(os.path.isdir("./assets/audio")):
+                if not (os.path.isdir("./assets/audio")):
                     os.mkdir("./assets/audio/")
                 downloadFile(baseUrl + "/" + asset["resource_path"], path)
                 data[keyEvent] = path
