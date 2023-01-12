@@ -1,9 +1,7 @@
 import os
-from io import BytesIO
 
 import requests
-import unitypack
-from PIL import ImageOps
+import UnityPy
 
 # conf
 option = {
@@ -119,45 +117,56 @@ def downloadFile(url, fname):
 
 
 def extractTextAsset(object, dest):
+    # parse the object data
     data = object.read()
-    if (type(data.script) == bytes):
-        with open(f"{dest}/{data.name}", "wb") as f:
-            f.write(data.script)
-    elif (type(data.script) == str):
-        with open(f"{dest}/{data.name}", "wb") as f:
-            f.write(bytes(str(data.script), 'utf-8'))
-    else:
-        raise Exception("Not handled")
+
+    # create destination path
+    dest = os.path.join(dest, data.name)
+
+    # touch folder
+    os.makedirs(os.path.dirname(dest), exist_ok=True)
+
+    # just save
+    with open(dest, "wb") as f:
+        f.write(data.script)
 
 
 def extractTexture2D(object, dest):
+    # parse the object data
     data = object.read()
-    img = ImageOps.flip(data.image)
-    output = BytesIO()
-    img.save(output, format="png")
-    with open(f"{dest}/{data.name}.png", "wb") as f:
-        f.write(output.getvalue())
+
+    # create destination path
+    dest = os.path.join(dest, data.name)
+
+    # touch folder
+    os.makedirs(os.path.dirname(dest), exist_ok=True)
+
+    # make sure that the extension is correct
+    # you probably only want to do so with images/textures
+    dest, ext = os.path.splitext(dest)
+    dest = dest + ".png"
+
+    img = data.image
+    img.save(dest)
 
 
 def extractCharacter(src, dest):
-    with open(src, "rb") as f:
-        bundle = unitypack.load(f)
-        for asset in bundle.assets:
-            # print("%s: %s:: %i objects" % (bundle, asset, len(asset.objects)))
-            for id, object in asset.objects.items():
-                # print(id, object)
-                # extract skel & atlas
-                if object.type == "TextAsset":
-                    data = object.read()
-                    if ".atlas" in data.name or ".skel" in data.name:
-                        print(data.name)
-                        extractTextAsset(object, dest)
-                # extract texture
-                elif object.type == "Texture2D":
-                    data = object.read()
+    # load the bundle
+    bundle = UnityPy.load(src)
 
-                    print(data.name + ".png")
-                    extractTexture2D(object, dest)
+    for obj in bundle.objects:
+        # extract skel & atlas
+        if obj.type.name == "TextAsset":
+            data = obj.read()
+            if ".atlas" in data.name or ".skel" in data.name:
+                print(data.name)
+                extractTextAsset(obj, dest)
+        # extract texture
+        elif obj.type.name == "Texture2D":
+            data = obj.read()
+
+            print(data.name + ".png")
+            extractTexture2D(obj, dest)
 
 
 if __name__ == "__main__":
@@ -222,4 +231,9 @@ if __name__ == "__main__":
 
         downloadFile(model, destDownload)
         # extract
-        extractCharacter(destDownload, destExtract)
+        try:
+            extractCharacter(destDownload, destExtract)
+        except:
+            print("Error occured. Skipping.")
+            import traceback
+            traceback.print_exc()
