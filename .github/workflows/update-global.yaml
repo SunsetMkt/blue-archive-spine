@@ -30,9 +30,9 @@ jobs:
           python ./py/generateAudioJsonGlobal.py
       - name: Commit files
         run: |
-          git config --local user.email "ucihaibna@yahoo.com"
-          git config --local user.name "respectZ"
           git add .
+          git config --global user.email "bot@github.com"
+          git config --global user.name "Github Bot"
           git commit -m "[Update] $(cat ./data/version.txt)"
       - name: Push changes
         uses: ad-m/github-push-action@master
