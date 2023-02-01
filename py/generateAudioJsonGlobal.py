@@ -3,7 +3,7 @@ import os
 
 import requests
 
-from getModelsGlobal import downloadFile, getResourceURL
+from getModelsGlobal import downloadFile, getResourceURL, updateBaData
 
 data = {}
 
@@ -18,6 +18,9 @@ if not (os.path.isdir("./data")):
     os.mkdir("./data")
 
 if __name__ == "__main__":
+    # updateBaData first
+    updateBaData()
+
     resUrl = getResourceURL()
     baseUrl = '/'.join(resUrl.split("/")[0:-1])
     res = requests.get(resUrl).json()["resources"]
