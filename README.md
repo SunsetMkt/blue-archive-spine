@@ -9,16 +9,18 @@ Based on [respectZ/blue-archive-spine](https://github.com/respectZ/blue-archive-
 * Enable GitHub Actions, manually trigger `Update-Global` and `Update-JP` at any branch (they will find the right branch, no matter where you trigger them) to get the first update
 * `Update-Global` will run daily and fails when no update is available, `Update-JP` won't run automatically
 
-`Update-JP` Needs to be triggered manually since there isn't a solution to get the latest update json link automatically. `ba_api` in `getModelsJapan.py` needs to be updated manually (through reverse engineering or network capture) when there is a new update.
+`Update-JP` Needs to be triggered manually since there isn't a solution to get the latest update json link automatically (maybe there is, but I'm not going to write it now). `ba_api` in `getModelsJapan.py` needs to be updated manually (through reverse engineering or network capture) when there is a new update.
 
 ## About Japan version
-The update json link seems to be hard coded into the game code.
+The update json link is hard coded into the game OBB resources.
 
 We can get `LatestClientVersion` from `https://prod-noticeindex.bluearchiveyostar.com/prod/index.json`, but how the random hash path (likes `r48_2q1alt6gvk5igdsj4hl2.json`) under `yostar-serverinfo.bluearchiveyostar.com` is generated?
 
-It seems that BA Japan (Yostar) does not have a certain resource path API. And their developers hard code the resource link for a version into the game code. The game only checks for `LatestClientVersion` to see if it's outdated and asks the user to update the game from Google Play to get the latest resource link.
+BA Japan (Yostar) does not have a certain resource path API. And their developers hard code the resource link for a version into the game OBB resources. The game only checks for `LatestClientVersion` to see if it's outdated and asks the user to update the game from Google Play to get the latest resource link.
 
 Does this mean the user has to update the game from Google Play every month to get the latest monthly in-game activity? -- Yes, this is what's happening. (BA Japan releases an update at Google Play about every month, while BA Global updates about every three months)
+
+You can extract `GameMainConfig` from game OBB and decrypt it. Check the key `ServerInfoDataUrl` in `GameMainConfig` to get the resource link.
 
 ## About this repo
 This repo is a fork of [respectZ/blue-archive-spine](https://github.com/respectZ/blue-archive-spine). Some contributors and I modified the code to make it work better.
