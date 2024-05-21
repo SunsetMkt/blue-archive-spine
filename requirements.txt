@@ -1,2 +1,2 @@
-requests==2.28.1
+requests==2.32.0
 UnityPy==1.9.24
