@@ -31,6 +31,7 @@
 
     <!-- Utility -->
     <script src="js/utility.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
     <!-- Howler -->
     <script src="https://cdn.jsdelivr.net/npm/howler@2.2.3/dist/howler.min.js"></script>
@@ -140,6 +141,31 @@
                     </div>
                 </li>
             </ul>
+            <!-- Export Model Image -->
+            <ul uk-accordion>
+                <li>
+                    <a class="uk-accordion-title" href="#">Export Model Image</a>
+                    <div class="uk-accordion-content">
+                    <div class="uk-grid-small" uk-grid>
+                        <div class="uk-width-1-1 uk-margin">
+                        <label>
+                            <input class="uk-checkbox" type="checkbox" id="optionExportAnimations">
+                            Export All Animations
+                        </label>
+                        </div>
+                        <div class="uk-width-1-1 uk-margin">
+                        <label>
+                            <input class="uk-checkbox" type="checkbox" id="optionExportAllModels">
+                            Export All Models
+                        </label>
+                        </div>
+                        <div class="uk-width-1-1">
+                        <button class="uk-button uk-button-default" id="optionExportImage">Export</button>
+                        </div>
+                    </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 
@@ -165,7 +191,10 @@
             y: document.getElementById("optionY"),
             FPS: document.getElementById("optionFPS"),
             export: document.getElementById("optionExport"),
-            exportType: document.getElementById("optionExportType")
+            exportType: document.getElementById("optionExportType"),
+            exportImage: document.getElementById("optionExportImage"),
+            exportAllModels: document.getElementById("optionExportAllModels"),
+            exportAllAnimations: document.getElementById("optionExportAnimations"),
         }
         async function main() {
             // Init models
@@ -229,7 +258,9 @@
             option.export.onclick = function () {
                 exportAnimation(FPS = parseInt(option.FPS.value))
             }
-
+            option.exportImage.onclick = function () {
+                exportImage(option.exportAllModels.checked, option.exportAllAnimations.checked);
+            };
             // On window resize
             window.onresize = function () {
                 width = window.innerWidth;

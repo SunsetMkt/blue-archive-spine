@@ -83,3 +83,126 @@ function exportAnimation(FPS = 60) {
 // char.state.setAnimation(0, "Idle_01", false);
 // mediaRecorder.start();
 // setTimeout(function (){ mediaRecorder.stop(); }, 4000);
+
+function exportImage(exportAllModels, exportAllAnimations) {
+    function renderModelAsImage(model, animation) {
+        return loadCharPromise(model).then(() => {
+            return playAnimationPromise(animation).then(() => {
+            let canvas = app.renderer.extract.canvas(app.stage);
+            let img = canvas.toDataURL("image/png");
+            return img;
+            });
+        });
+    }
+    
+    function loadCharPromise(model = "./assets/spine/shiroko_home/Shiroko_home.skel") {
+        return new Promise((resolve, reject) => {
+            isCharacterLoaded = false;
+            if (app.stage.children.length > 0) {
+            app.stage.children.pop();
+            app.loader.resources = {};
+            }
+            if (audioList.length != 0) {
+            for (var i in audioList) {
+                audioList[i].stop();
+            }
+            audioList = [];
+            }
+        
+            app.loader.resources = {};
+            app.loader
+            .add("char", `./${model}`)
+            .load((loader, res) => {
+                onAssetsLoaded(loader, res);
+                resolve();
+            })
+            .on("error", (error) => {
+                console.error(error);
+                reject(error);
+            });
+        });
+    }
+    
+    function playAnimationPromise(animation) {
+        return new Promise((resolve, reject) => {
+            try {
+            playAnimation(animation);
+            setTimeout(resolve, 2);
+            } catch (error) {
+            console.error("播放动画出错: ", error);
+            reject(error);
+            }
+        });
+    }
+    
+    function getModelFileName(filePath) {
+        const parts = filePath.split("/");
+        return parts[parts.length - 1].split(".")[0];
+    }
+    
+    let zip = new JSZip();
+    let models = exportAllModels
+    ? [...option.models].map((o) => o.value)
+    : [option.models.value]; // Export only the current model by default
+    
+    let chain = Promise.resolve();
+    models.forEach(function (model, index) {
+    chain = chain
+        .then(() => loadCharPromise(model))
+        .then(() => {
+        if (exportAllAnimations) {
+            let animations = char.spineData.animations.map((a) => a.name);
+            console.log(`模型 ${model} 的动画列表：`, animations);
+    
+            let animationChain = Promise.resolve();
+            animations.forEach(function (animation, aniIndex) {
+            animationChain = animationChain
+                .then(() => renderModelAsImage(model, animation))
+                .catch((error) => {
+                console.log(`读取模型动画失败 ${model} - ${animation}: `, error);
+                })
+                .then((img) => {
+                if (img) {
+                    zip.file(`${model}_animation_${aniIndex}.png`, img.split(",")[1], {
+                    base64: true,
+                    });
+                }
+                });
+            });
+            return animationChain;
+        } else {
+            return renderModelAsImage(model, char.spineData.animations[0].name)
+            .catch((error) => {
+                console.log(`读取模型初始状态失败 ${model}: `, error);
+            })
+            .then((img) => {
+                if (img) {
+                zip.file(`${model}.png`, img.split(",")[1], { base64: true });
+                }
+            });
+        }
+        })
+        .catch((error) => {
+            console.log(`读取模型失败 ${model}: `, error);
+        });
+    });
+    
+    chain.then(() => {
+        zip.generateAsync({ type: "blob" }).then((content) => {
+            var a = document.createElement("a");
+            a.href = window.URL.createObjectURL(content);
+            
+            let baseFileName = exportAllModels ? "AllModels" : getModelFileName(option.models.value);
+            
+            if (exportAllAnimations) {
+              baseFileName += "_Animation";
+            }
+            
+            a.download = `${baseFileName}.zip`;
+        
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+    });
+}
